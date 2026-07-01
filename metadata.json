@@ -1,0 +1,6 @@
+{
+  "name": "Samira Naturale",
+  "description": "Premium e-commerce platform for DXN natural hygiene and wellness products, featuring Ganozhi Toothpaste, Lingzhi Black Coffee, and Reishilium Powder. In Arabic, French, and English.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
