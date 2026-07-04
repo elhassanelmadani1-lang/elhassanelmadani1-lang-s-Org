@@ -353,7 +353,7 @@ const heroSlides = [
   },
   {
     id: "coffee",
-    image: "https://www.dxnwellness.eu/uk/ar/wp-content/uploads/sites/2/2025/03/Sample_1920x1020_3.jpg",
+    image: "https://i.ibb.co/PSQ7Q7m/image.png",
     ar: {
       title: "قهوة صحية مع الجانوديرما",
       desc: "تقدّر DXN تقليد القهوة وتعمل بمنهجية لضمان أن يحتوي كوبك على أجود أنواع القهوة—مزيج مبتكر يجمع بين المذاق والقيمة الغذائية. نبدأ بأفضل وأجود حبوب القهوة الطازجة. استمتع واستكشف عالم القهوة الرائع مع الجانوديرما العضوية، من خلال مجموعة DXN الواسعة من القهوة والمشروبات اليوم. في عام 2005، قامت DXN ببناء مصنع قهوة جديد، وحصلت لاحقاً على شهادة HACCP من وزارة الصحة."
@@ -456,9 +456,9 @@ const categoriesList: CategoryItem[] = [
     image: 'https://i.ibb.co/s9qYfmDg/image.png',
     view: 'coffee',
     title: {
-      ar: 'القهوة الصحية',
-      fr: 'Café Santé',
-      en: 'Healthy Coffee'
+      ar: 'القهوة',
+      fr: 'Le Café',
+      en: 'Coffee'
     },
     desc: {
       ar: 'قهوة مغذية معززة بالفطر الريشي للعناية اليومية ونشاط متجدد.',
@@ -472,9 +472,9 @@ const categoriesList: CategoryItem[] = [
     image: 'https://i.ibb.co/spST9XJM/image.png',
     view: 'spirulina',
     title: {
-      ar: 'المكملات الغذائية',
-      fr: 'Compléments Alimentaires',
-      en: 'Food Supplements'
+      ar: 'مكملات غذائية',
+      fr: 'Compléments',
+      en: 'Supplements'
     },
     desc: {
       ar: 'السبيرولينا، الكورديسبس، البوتنزي وغيرها من المكملات العضوية الفائقة.',
@@ -488,9 +488,9 @@ const categoriesList: CategoryItem[] = [
     image: 'https://i.ibb.co/XrgDjvXD/image.png',
     view: 'spirulina-cereal',
     title: {
-      ar: 'الأغذية الصحية',
-      fr: 'Aliments Sains',
-      en: 'Healthy Foods'
+      ar: 'الأطعمة',
+      fr: 'Les Aliments',
+      en: 'Foods'
     },
     desc: {
       ar: 'حبوب السيريال والمواد الغذائية العضوية المفيدة لصحة العائلة.',
@@ -504,9 +504,9 @@ const categoriesList: CategoryItem[] = [
     image: 'https://i.ibb.co/Jj1wrV2b/image.png',
     view: 'moricinia',
     title: {
-      ar: 'المشروبات الصحية',
-      fr: 'Boissons Saines',
-      en: 'Healthy Drinks'
+      ar: 'الشاي والمشروبات',
+      fr: 'Le Thé & Boissons',
+      en: 'Tea & Drinks'
     },
     desc: {
       ar: 'عصائر الكورديسبس، الموريسينيا، والكركديه لتعزيز الحيوية والنشاط.',
@@ -536,9 +536,9 @@ const categoriesList: CategoryItem[] = [
     image: 'https://i.ibb.co/GfPQNL6M/image.png',
     view: 'soap',
     title: {
-      ar: 'كالو كوزمتيكس',
-      fr: 'Kallow Cosmétique',
-      en: 'Kallow Cosmetics'
+      ar: 'مستحضرات التجميل',
+      fr: 'Cosmétiques',
+      en: 'Cosmetics'
     },
     desc: {
       ar: 'منتجات تجميل وعناية فائقة مستوحاة من روعة الطبيعة.',
@@ -730,121 +730,268 @@ export default function SamiraNaturaleHomepage({
             </p>
           </div>
 
-          {/* Majestic Large Slideshow Frame (Matches the user's uploaded screenshot perfectly) */}
-          <div className="relative w-full min-h-[480px] sm:min-h-[580px] lg:min-h-[620px] rounded-[2.5rem] border-[6px] border-white shadow-[0_30px_60px_-15px_rgba(14,122,67,0.18)] overflow-hidden bg-neutral-100 group flex items-center justify-center">
+          {/* Majestic Large Slideshow Frame - Redesigned as a Premium Split Card to prevent text from covering the image */}
+          <div className={`relative w-full h-auto md:h-[480px] lg:h-[540px] rounded-[2.5rem] border-[6px] border-white shadow-[0_25px_50px_-12px_rgba(14,122,67,0.15)] overflow-hidden bg-[#FCFAF6] dark:bg-slate-950 flex flex-col ${isRtl ? 'md:flex-row-reverse' : 'md:flex-row'} group`}>
             
-            {/* Active Slide Image */}
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="absolute inset-0 w-full h-full"
-            >
-              <img
-                src={heroSlides[currentSlide].image}
-                alt={heroSlides[currentSlide][lang].title}
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
-            </motion.div>
-
-            {/* Glassmorphic Slide Information Card (Centered & Premium, exactly like the screenshot) */}
-            <div className="relative z-20 w-[92%] max-w-lg mx-auto p-5 sm:p-7 rounded-[2rem] bg-white/75 backdrop-blur-lg border border-white/40 shadow-2xl flex flex-col gap-3.5 sm:gap-4 select-none transition-all duration-300">
-              
-              {/* Header Row of the card */}
-              <div className="flex items-center justify-between border-b border-neutral-200/50 pb-2.5">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#0E7A43] bg-[#EAF0EC]/90 px-2.5 py-1 rounded-full">
-                  {lang === 'ar' ? 'مميز' : lang === 'fr' ? 'À l\'affiche' : 'Featured'}
-                </span>
-                
-                {/* Localized Slide counter to prevent slash reversing in RTL browsers */}
-                <span className="text-[11px] font-black text-neutral-500/90 font-mono">
-                  {lang === 'ar' 
-                    ? `القسم ${currentSlide + 1} من ${heroSlides.length}`
-                    : `Slide ${currentSlide + 1} of ${heroSlides.length}`
-                  }
-                </span>
-              </div>
-
-              {/* Slide Text Content - Synchronized perfectly with the active image */}
+            {/* 1. Left/Right Half: Beautiful Image Stage (100% visible, clean and uncovered) */}
+            <div className="w-full h-[260px] sm:h-[340px] md:h-full md:w-1/2 relative overflow-hidden bg-neutral-100 shrink-0">
               <motion.div
                 key={currentSlide}
-                initial={{ y: 12, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="flex flex-col gap-2"
+                initial={{ opacity: 0, scale: 1.06 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 w-full h-full"
               >
-                <h3 className="text-base sm:text-lg font-black text-neutral-950 leading-tight">
-                  {heroSlides[currentSlide][lang].title}
-                </h3>
-                <p className="text-neutral-700/90 text-[11px] sm:text-xs leading-relaxed font-medium">
-                  {heroSlides[currentSlide][lang].desc}
-                </p>
+                <img
+                  src={heroSlides[currentSlide].image}
+                  alt={heroSlides[currentSlide][lang].title}
+                  className="w-full h-full object-cover select-none"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-black/[0.02]" />
               </motion.div>
 
-              {/* Slider Button */}
-              <div className="pt-2 sm:pt-4 border-t border-neutral-100/60">
-                <button
-                  onClick={() => {
-                    const slide = heroSlides[currentSlide];
-                    if (slide.id === 'ganoderma') {
-                      const el = document.getElementById('ganoderma_section');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    } else if (slide.id === 'coffee') {
-                      setShopCategory('coffee');
-                      setActiveView('shop');
-                    } else if (slide.id === 'personal_care') {
-                      setShopCategory('care');
-                      setActiveView('shop');
-                    } else if (slide.id === 'greek_cosmetics') {
-                      setShopCategory('cosmetics');
-                      setActiveView('shop');
-                    }
-                  }}
-                  className="w-full inline-flex items-center justify-center py-3.5 px-6 bg-neutral-950 hover:bg-neutral-900 text-white font-extrabold text-sm sm:text-base rounded-2xl transition-all duration-300 shadow-md active:scale-98 cursor-pointer"
-                >
-                  <span>{lang === 'ar' ? 'إقرأ المزيد' : lang === 'fr' ? 'En savoir plus' : 'Read More'}</span>
-                </button>
-              </div>
-
+              {/* Navigation Arrows inside the image stage on desktop (visible on hover) */}
+              <button
+                onClick={() => setCurrentSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length)}
+                className={`absolute ${isRtl ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/85 dark:bg-slate-900/85 hover:bg-white dark:hover:bg-slate-800 text-[#1C352D] dark:text-stone-100 flex items-center justify-center transition-all duration-300 backdrop-blur-xs cursor-pointer shadow-md hover:scale-105 active:scale-95 hidden sm:flex`}
+                aria-label="Previous Slide"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setCurrentSlide(prev => (prev + 1) % heroSlides.length)}
+                className={`absolute ${isRtl ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/85 dark:bg-slate-900/85 hover:bg-white dark:hover:bg-slate-800 text-[#1C352D] dark:text-stone-100 flex items-center justify-center transition-all duration-300 backdrop-blur-xs cursor-pointer shadow-md hover:scale-105 active:scale-95 hidden sm:flex`}
+                aria-label="Next Slide"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Navigation Arrows at far left/right edges */}
-            <button
-              onClick={() => setCurrentSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length)}
-              className="absolute left-4 sm:left-6 z-30 w-12 h-12 rounded-full bg-white/20 hover:bg-white/95 text-white hover:text-neutral-950 flex items-center justify-center transition-all duration-300 backdrop-blur-xs cursor-pointer shadow-lg active:scale-95 group-hover:scale-100"
-              aria-label="Previous Slide"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={() => setCurrentSlide(prev => (prev + 1) % heroSlides.length)}
-              className="absolute right-4 sm:right-6 z-30 w-12 h-12 rounded-full bg-white/20 hover:bg-white/95 text-white hover:text-neutral-950 flex items-center justify-center transition-all duration-300 backdrop-blur-xs cursor-pointer shadow-lg active:scale-95 group-hover:scale-100"
-              aria-label="Next Slide"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+            {/* 2. Right/Left Half: Elegant Copy & Action Panel */}
+            <div className={`w-full flex-1 p-6 sm:p-10 lg:p-14 flex flex-col justify-between items-center text-center ${isRtl ? 'md:text-right md:items-end' : 'md:text-left md:items-start'} bg-[#FAF8F4] dark:bg-slate-900/30`}>
+              
+              {/* Header Badge Row */}
+              <div className="flex items-center gap-3 select-none">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#0E7A43] bg-[#EAF0EC] dark:bg-[#0E7A43]/15 dark:text-[#59B17D] px-3.5 py-1 rounded-full">
+                  {lang === 'ar' ? 'عضوية معتمدة' : lang === 'fr' ? 'Certifié Bio' : 'Certified Organic'}
+                </span>
+                <span className="text-xs font-extrabold text-[#C8A34D] font-mono">
+                  {currentSlide + 1} / {heroSlides.length}
+                </span>
+              </div>
 
-            {/* Slide Indicators / Dots over background at bottom */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center gap-2">
-              {heroSlides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${
-                    currentSlide === i ? 'w-8 bg-white shadow-md' : 'w-2.5 bg-white/40 hover:bg-white/60'
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
+              {/* Text Area with Staggered Spring Animations */}
+              <div className="flex-1 flex flex-col justify-center my-6 md:my-0 w-full">
+                <motion.h3
+                  key={`title-${currentSlide}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                  className="text-xl sm:text-2xl lg:text-3.5xl font-black text-[#1C352D] dark:text-stone-100 leading-tight tracking-wide"
+                >
+                  {heroSlides[currentSlide][lang].title}
+                </motion.h3>
+
+                <motion.p
+                  key={`desc-${currentSlide}`}
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ type: "spring", stiffness: 90, damping: 15, delay: 0.1 }}
+                  className="text-xs sm:text-sm text-neutral-600 dark:text-slate-300 leading-relaxed font-bold mt-4 max-w-lg"
+                >
+                  {heroSlides[currentSlide][lang].desc}
+                </motion.p>
+              </div>
+
+              {/* Action Button & Dots Footer Row */}
+              <div className={`w-full flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-0 border-t border-black/[0.04] dark:border-white/[0.05] pt-5 mt-auto`}>
+                
+                {/* Custom Styled Call To Action */}
+                <motion.div
+                  key={`btn-${currentSlide}`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 15, delay: 0.15 }}
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    onClick={() => {
+                      const slide = heroSlides[currentSlide];
+                      if (slide.id === 'ganoderma') {
+                        const el = document.getElementById('ganoderma_section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      } else if (slide.id === 'coffee') {
+                        setShopCategory('coffee');
+                        setActiveView('shop');
+                      } else if (slide.id === 'personal_care') {
+                        setShopCategory('care');
+                        setActiveView('shop');
+                      } else if (slide.id === 'greek_cosmetics') {
+                        setShopCategory('cosmetics');
+                        setActiveView('shop');
+                      }
+                    }}
+                    className="inline-flex items-center justify-center py-2.5 px-8 bg-[#1C352D] hover:bg-[#0E7A43] dark:bg-stone-100 dark:hover:bg-white text-white dark:text-neutral-950 font-black text-xs sm:text-sm rounded-full transition-all duration-300 shadow-[0_8px_20px_rgba(28,53,45,0.18)] hover:shadow-[0_12px_25px_rgba(28,53,45,0.3)] cursor-pointer uppercase tracking-wider"
+                  >
+                    <span>{lang === 'ar' ? 'اقرأ المزيد' : lang === 'fr' ? 'En savoir plus' : 'Read More'}</span>
+                  </motion.button>
+                </motion.div>
+
+                {/* Pagination Dots */}
+                <div className="flex items-center gap-2 select-none">
+                  {heroSlides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentSlide(i)}
+                      className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        i === currentSlide 
+                          ? 'w-6 bg-[#0E7A43]' 
+                          : 'w-2.5 bg-[#0E7A43]/20 hover:bg-[#0E7A43]/45'
+                      }`}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+              </div>
+
             </div>
 
           </div>
 
-          {/* Premium Trust Cards Grid at bottom */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full pt-4">
+        </div>
+      </section>
+
+      {/* ================= PREMIUM PRODUCT CATEGORIES SECTION ================= */}
+      <section id="featured_collections" className="py-12 md:py-24 bg-[#FAFAF8] relative overflow-hidden">
+        {/* Background Decorative Accents */}
+        <div className="absolute top-1/4 right-[-10%] w-96 h-96 bg-[#C8A34D]/5 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-1/4 left-[-10%] w-96 h-96 bg-[#0E7A43]/5 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Section Title Area - Re-designed to match dxnwellness.eu screenshot */}
+          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16 select-none">
+            <motion.span
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5 }}
+              className="text-xs sm:text-sm font-bold tracking-wider text-[#C8A34D] uppercase block mb-2"
+            >
+              {lang === 'ar' ? 'اكتشف الفئات الشائعة' : lang === 'fr' ? 'Découvrez les catégories populaires' : 'Discover Popular Categories'}
+            </motion.span>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-2xl sm:text-4xl font-black text-[#1F2937] dark:text-white tracking-wide uppercase leading-tight"
+            >
+              {lang === 'ar' ? 'أقسام المنتجات' : lang === 'fr' ? 'Catégories de Produits' : 'Product Categories'}
+            </motion.h2>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-0.5 w-16 bg-[#C8A34D] mx-auto mt-4 rounded-full origin-center"
+            />
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-xs sm:text-sm text-[#6B7280] dark:text-slate-400 mt-4 leading-relaxed font-semibold max-w-2xl mx-auto"
+            >
+              {lang === 'ar' 
+                ? 'تشمل مجموعات منتجات دكسن: المكملات الغذائية، الأغذية والمشروبات، منتجات العناية الشخصية، العناية بالبشرة، ومستحضرات التجميل.'
+                : lang === 'fr'
+                ? 'Les collections DXN incluent des compléments de santé, des aliments et boissons, des soins personnels, des soins de la peau et des cosmétiques.'
+                : 'DXN product collections include: Dietary supplements, food & beverages, personal care, skincare, and premium cosmetics.'}
+            </motion.p>
+          </div>
+
+          {/* Redesigned Premium Cards Grid - 2 columns on mobile, square cards with pro animations */}
+          <motion.div 
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: {},
+              show: {
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-8 sm:gap-6 lg:gap-8 mt-6 md:mt-16"
+          >
+            {categoriesList.map((item) => {
+              const titleText = item.title[lang] || item.title.en;
+              return (
+                <motion.div
+                  key={item.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 40, scale: 0.95 },
+                    show: { 
+                      opacity: 1, 
+                      y: 0,
+                      scale: 1,
+                      transition: {
+                        type: "spring",
+                        stiffness: 110,
+                        damping: 15
+                      }
+                    }
+                  }}
+                  whileHover={{ y: -8, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  onClick={() => {
+                    if (setShopCategory) {
+                      setShopCategory(item.id);
+                    }
+                    setActiveView('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="group flex flex-col items-stretch cursor-pointer select-none"
+                >
+                  {/* Square aspect ratio with deeply rounded corners matching the screenshot */}
+                  <div className="aspect-square w-full rounded-[2rem] sm:rounded-[2.5rem] bg-stone-150 dark:bg-slate-900 overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.05)] group-hover:shadow-[0_20px_45px_rgba(0,0,0,0.12)] border border-black/[0.03] dark:border-white/[0.04] group-hover:border-[#C8A34D]/40 transition-all duration-500 relative">
+                    <img
+                      src={item.image}
+                      alt={titleText}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      referrerPolicy="no-referrer"
+                    />
+                    
+                    {/* Dark overlay that softens on hover */}
+                    <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-500" />
+                  </div>
+
+                  {/* Elegant, clean category title centered underneath the rounded card */}
+                  <div className="mt-3 md:mt-4 text-center px-1">
+                    <h3 className="text-sm sm:text-base font-extrabold tracking-wide text-[#1C352D] dark:text-stone-100 transition-colors duration-300 group-hover:text-[#C8A34D]">
+                      {titleText}
+                    </h3>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= TRUST CARDS SECTION ================= */}
+      <section className="py-8 md:py-16 bg-white relative overflow-hidden border-b border-[#0E7A43]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full">
             {trustCardsList.map((card, index) => {
               const IconComp = card.icon;
               return (
@@ -867,117 +1014,6 @@ export default function SamiraNaturaleHomepage({
               );
             })}
           </div>
-
-        </div>
-      </section>
-
-      {/* ================= PREMIUM PRODUCT CATEGORIES SECTION ================= */}
-      <section id="featured_collections" className="py-4 md:py-24 bg-[#FAFAF8] relative overflow-hidden">
-        {/* Background Decorative Accents */}
-        <div className="absolute top-1/4 right-[-10%] w-96 h-96 bg-[#C8A34D]/5 blur-3xl rounded-full pointer-events-none" />
-        <div className="absolute bottom-1/4 left-[-10%] w-96 h-96 bg-[#0E7A43]/5 blur-3xl rounded-full pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Section Title Area */}
-          <div className="text-center max-w-3xl mx-auto mb-16 select-none">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl font-black text-[#1F2937] dark:text-white tracking-[0.1em] uppercase leading-tight"
-            >
-              {lang === 'ar' ? 'أقسام المنتجات' : lang === 'fr' ? 'CATÉGORIES DE PRODUITS' : 'PRODUCT CATEGORIES'}
-            </motion.h2>
-
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="h-0.5 w-24 bg-[#C8A34D] mx-auto mt-4 rounded-full origin-center"
-            />
-
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xs sm:text-sm text-[#6B7280] dark:text-slate-400 mt-4 leading-relaxed font-semibold max-w-2xl mx-auto"
-            >
-              {lang === 'ar' 
-                ? 'تشمل مجموعات منتجات دكسن: المكملات الغذائية، الأغذية الصحية، المشروبات البديلة والقهوة الفاخرة، بالإضافة إلى منتجات العناية الشخصية الطبيعية والجمال.'
-                : lang === 'fr'
-                ? 'Les collections DXN incluent des compléments de santé, des aliments sains, des boissons, des soins personnels et des produits de beauté.'
-                : 'Our premium collections include: Dietary supplements, healthy foods, nutritional beverages, personal care, and organic beauty products.'}
-            </motion.p>
-          </div>
-
-          {/* Redesigned Premium Cards Grid */}
-          <motion.div 
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              hidden: {},
-              show: {
-                transition: {
-                  staggerChildren: 0.15
-                }
-              }
-            }}
-            className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-5 gap-2 md:gap-6 mt-6 md:mt-16"
-          >
-            {categoriesList.map((item) => {
-              const IconComponent = item.icon;
-              const titleText = item.title[lang] || item.title.en;
-              return (
-                <motion.div
-                  key={item.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    show: { 
-                      opacity: 1, 
-                      y: 0,
-                      transition: {
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 16
-                      }
-                    }
-                  }}
-                  whileHover={{ y: -8 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  onClick={() => {
-                    if (setShopCategory) {
-                      setShopCategory(item.id);
-                    }
-                    setActiveView('shop');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="group flex flex-col items-stretch cursor-pointer select-none"
-                >
-                  {/* Portrait aspect ratio with high-quality full-bleed cover photo */}
-                  <div className="aspect-square md:aspect-[3/4.2] w-full rounded-xl md:rounded-[2.5rem] bg-neutral-100 dark:bg-slate-900 overflow-hidden shadow-[0_15px_35px_-5px_rgba(0,0,0,0.06)] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.12)] border border-[#C8A34D]/10 group-hover:border-[#C8A34D]/40 transition-all duration-500 relative">
-                    <img
-                      src={item.image}
-                      alt={titleText}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-
-                  {/* Elegant category title underneath the rounded card */}
-                  <div className="mt-2 md:mt-5 text-center">
-                    <h3 className="text-[10px] md:text-sm sm:text-base font-black tracking-wider text-[#1F2937] dark:text-white uppercase transition-colors duration-300 group-hover:text-[#C8A34D]">
-                      {titleText}
-                    </h3>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
         </div>
       </section>
 

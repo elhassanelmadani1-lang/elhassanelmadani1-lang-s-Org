@@ -22,6 +22,7 @@ import {
   ThumbsUp
 } from 'lucide-react';
 import { productsData } from '../translations';
+import { generateOrderMessage } from '../utils/orderMessageHelper';
 const logoImg = 'https://i.ibb.co/BScXT93/16e2c2de-c552-451e-bde1-1d22720f0ba4-1.png';
 
 interface PremiumCheckoutFormProps {
@@ -625,14 +626,26 @@ export default function PremiumCheckoutForm({
 
     setIsOrdering(true);
 
-    const orderNo = `DXN-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
-
-    let itemsText = `• ${qty} × ${mainProduct.name} [${mainProduct.price} DH]\n`;
+    const orderedProducts: { name: string; desc: string; qty: number; price: number; total: number; }[] = [];
+    
+    orderedProducts.push({
+      name: mainProduct.name,
+      desc: isRtl ? 'المنتج الرئيسي من متجر سميرة الطبيعي' : 'Produit Principal DXN',
+      qty: qty,
+      price: mainProduct.price,
+      total: mainProduct.price * qty
+    });
 
     additionalEntries.forEach(([id, q]) => {
       if (q > 0) {
         const info = getProductInfo(id);
-        itemsText += `• ${q} × ${info.name} [${info.price} DH] (${isRtl ? 'إضافة إضافية' : 'Article Supplémentaire'})\n`;
+        orderedProducts.push({
+          name: info.name,
+          desc: isRtl ? 'مكمل إضافي طبيعي فاخر للطلب' : 'Article Supplémentaire',
+          qty: q,
+          price: info.price,
+          total: info.price * q
+        });
       }
     });
 
@@ -641,29 +654,37 @@ export default function PremiumCheckoutForm({
         const b = bundles.find(item => item.id === id);
         if (b) {
           const nameTrans = b.name[lang] || b.name['en'];
-          itemsText += `• ${q} × ${nameTrans} [${b.discountedPrice} DH] (${isRtl ? 'عرض باقة ترويجية بخصم' : 'Pack Promo'})\n`;
+          orderedProducts.push({
+            name: nameTrans,
+            desc: isRtl ? 'عرض باقة ترويجية بخصم خاص' : 'Pack Promo',
+            qty: q,
+            price: b.discountedPrice,
+            total: b.discountedPrice * q
+          });
         }
       }
     });
 
-    const message =
-`👑 ${isRtl ? 'طلب شراء مؤكد - سميرة ناتورال المغرب' : 'COMMANDE CONFIRMÉE - SAMIRA NATURALE'} 👑
-📌 ${isRtl ? 'رقم الطلب' : 'N° COMMANDE'}: ${orderNo}
+    const clientMsg = isRtl 
+      ? '🚀 مرحباً لالة سميرة، أود تأكيد طلبي لمنتجات دي إكس إن الطبيعية المذكورة أعلاه. يرجى شحن طلبي في أقرب وقت!' 
+      : 'Bonjour Samira, je confirme ma commande ci-dessus. Merci de m\'expédier mon colis rapidement !';
 
-👤 ${isRtl ? 'اسم الزبون' : 'Nom'}: ${customerName}
-📍 ${isRtl ? 'العنوان الكامل للتوصل' : 'Adresse'}: ${customerAddress}
-📞 ${isRtl ? 'الهاتف / واتساب للتنسيق' : 'Tél'}: ${customerPhone}
+    const addressParts = customerAddress.split(/[,،\s]+/);
+    const lastWord = addressParts[addressParts.length - 1]?.trim() || '';
+    const customerCity = lastWord.length > 2 && lastWord.length < 20 ? lastWord : (isRtl ? 'محددة في العنوان' : 'Spécifiée dans l\'adresse');
 
----------------------------------------
-📦 ${isRtl ? 'تفاصيل المنتجات المطلوبة' : 'Détails des Articles'}:
-${itemsText}
-🚚 ${isRtl ? 'الشحن والتوصيل' : 'Livraison'}: ${shippingCost === 0 ? (isRtl ? 'شحن مجاني بالكامل لجميع المدن' : 'GRATUIT') : '+20 DH'}
-💰 ${isRtl ? 'إجمالي الخصم الممنوح' : 'Remise cumulée'}: ${totalDiscount > 0 ? `-${totalDiscount} DH` : (isRtl ? 'لا يوجد' : 'Aucune')}
----------------------------------------
-💵 ${isRtl ? 'المجموع النهائي للدفع عند الاستلام' : 'TOTAL NET À PAYER (COD)'}: ${grandTotal} DH
+    const orderResult = generateOrderMessage({
+      customerName,
+      customerCity,
+      customerAddress,
+      customerPhone,
+      products: orderedProducts,
+      customerMessage: clientMsg,
+      grandTotal: grandTotal
+    });
 
-🚀 ${isRtl ? 'مرحباً لالة سميرة، أود تأكيد طلبي لمنتجات دي إكس إن الطبيعية المذكورة أعلاه. يرجى شحن طلبي في أقرب وقت!' : 'Bonjour Samira, je confirme ma commande ci-dessus. Merci de m\'expédier mon colis rapidement !'}`;
-
+    const orderNo = orderResult.orderNo;
+    const message = orderResult.message;
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
 
     // Simulate database/local processing and render premium success screen
@@ -676,7 +697,7 @@ ${itemsText}
         customerPhone,
         grandTotal,
         whatsappUrl,
-        itemsText
+        itemsText: orderedProducts.map(p => `• ${p.qty} × ${p.name} [${p.price} DH]`).join('\n')
       };
       setOrderSuccessData(orderDetails);
       trackPurchase(grandTotal, 'MAD', [productId]);

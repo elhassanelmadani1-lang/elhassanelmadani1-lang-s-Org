@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, Trash2, Plus, Minus, Phone, MapPin, Check, MessageCircle, ArrowLeft, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
 import { productsData } from '../translations';
 import { wellnessPacks } from '../data/wellnessPacksData';
+import { generateOrderMessage } from '../utils/orderMessageHelper';
 
 const WHATSAPP_PHONE = '212648834419';
 
@@ -228,26 +229,30 @@ export default function OnePageCheckout({
     // Save info
     localStorage.setItem('samira_naturale_cust', JSON.stringify({ name, phone, city, address }));
 
-    // Formulate WhatsApp Message
-    const header = lang === 'ar' 
-      ? '🟢 طلب شراء جديد - سميرة ناتورال 🟢' 
-      : '🟢 NOUVELLE COMMANDE - SAMIRA NATURALE 🟢';
+    // Formulate WhatsApp Message using the standardized helper
+    const orderedProducts = cartItems.map(item => ({
+      name: item.name,
+      desc: lang === 'ar' ? 'منتج طبيعي مميز من السلة' : 'Produit naturel DXN sélectionné',
+      qty: item.qty,
+      price: item.price,
+      total: item.price * item.qty
+    }));
 
-    const itemsStr = cartItems.map(item => {
-      return `• ${item.name} x${item.qty} (${item.price * item.qty} MAD)`;
-    }).join('\n');
+    const clientMsg = lang === 'ar'
+      ? '🚀 مرحباً لالة سميرة، أود تأكيد طلبي لمنتجات دي إكس إن الطبيعية المذكورة أعلاه. يرجى شحن طلبي في أقرب وقت!'
+      : 'Bonjour Samira, je souhaite confirmer ma commande ci-dessus de vos merveilleux produits DXN. Merci de me contacter pour l\'expédition !';
 
-    const customerDetails = lang === 'ar'
-      ? `👤 الاسم الكامل: ${name}\n📞 الهاتف: ${phone}\n🏙️ المدينة: ${city}\n📍 العنوان: ${address}`
-      : `👤 Nom: ${name}\n📞 Téléphone: ${phone}\n🏙️ Ville: ${city}\n📍 Adresse: ${address}`;
+    const orderResult = generateOrderMessage({
+      customerName: name,
+      customerCity: city,
+      customerAddress: address,
+      customerPhone: phone,
+      products: orderedProducts,
+      customerMessage: clientMsg,
+      grandTotal: subtotal
+    });
 
-    const financialDetails = lang === 'ar'
-      ? `💵 المجموع الإجمالي: *${subtotal} درهم*\n🚚 الشحن: *مجاني بالكامل والدفع عند الاستلام*`
-      : `💵 Total de la Commande: *${subtotal} MAD*\n🚚 Livraison: *Gratuite - Paiement Cash à la Livraison*`;
-
-    const rawMessage = `${header}\n\n🛍️ *المنتجات المطلوبة / Produits:* \n${itemsStr}\n\n${customerDetails}\n\n${financialDetails}\n\n🙏 شكراً لتسوقكم من متجرنا الطبيعي!`;
-    const encodedText = encodeURIComponent(rawMessage);
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodedText}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
 
     // Show success & redirect
     setTimeout(() => {
