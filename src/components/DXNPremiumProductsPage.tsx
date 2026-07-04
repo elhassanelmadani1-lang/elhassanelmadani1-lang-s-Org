@@ -245,7 +245,7 @@ export default function DXNPremiumProductsPage({
         fr: "Capsules hautement concentrées en Cordyceps Sinensis biologique. Un trésor adaptogène rare qui booste l'ATP cellulaire, l'endurance et soutient les fonctions rénales et respiratoires."
       },
       longDesc: {
-        ar: "فطر الكورديسبس سينينسيس هو أحد أندر الفطور الطبية وأكثرها قيمة في الطب الآسيوي التقليدي. صُمم هذا المكمل الفاخر خصيصاً للرياضيين والذين يبحثون عن مستويات طاقة مستدامة، حيث يعمل على تنشيط الدورة الدموية وتوفير طاقة ATP عضوية مباشرة للخلايا.",
+        ar: "فطر الكورديسبس سينينسيس هو أحد أندر الفطور الطبيعية وأكثرها قيمة في التقاليد الآسيوية العريقة. صُمم هذا المكمل الفاخر خصيصاً للرياضيين والذين يبحثون عن مستويات طاقة مستدامة، حيث يعمل على تنشيط الدورة الدموية وتوفير طاقة ATP عضوية مباشرة للخلايا.",
         en: "Cordyceps Sinensis is famously recognized as a premier natural booster of vitality. Used for centuries by Eastern royalty, it optimizes cellular energy production, increases pure VO2 max, relieves respiratory congestion, and rejuvenates overall body performance under heavy fatigue.",
         fr: "Le Cordyceps Sinensis est l'un des joyaux les plus précieux de la phytothérapie mondiale. Il stimule l'immunité, purifie les voies respiratoires, améliore la circulation sanguine périphérique et permet une récupération physique fulgurante après un effort intense."
       },
@@ -2261,7 +2261,7 @@ export default function DXNPremiumProductsPage({
       reviewsTitle: "شهادات وقصص نجاح من عائلتنا السعيدة",
       reviewsSubtitle: "آراء صادقة وتجارب حقيقية لزبائننا الأوفياء بمختلف المدن المغربية",
       faqTitle: "الأسئلة الشائعة حول المنتجات العضوية",
-      faqSubtitle: "كل ما تود معرفته عن طريقة الاستعمال، الحفظ، ومزايا المكملات الغذائية للريادة الطبية",
+      faqSubtitle: "كل ما تود معرفته عن طريقة الاستعمال، الحفظ، ومزايا المكملات الغذائية للصحة والعافية",
       trustBadgesTitle: "أعلى معايير الأمان والتوثيق المعتمدة",
       checkoutTitle: "استمارة الطلب المباشر الفاخرة",
       checkoutSubtitle: "سجل معلوماتك المباشرة وسيتواصل معك فريق لالة سميرة فوراً لتأكيد شحن طردك وتوصيله مجاناً",
@@ -2350,7 +2350,7 @@ export default function DXNPremiumProductsPage({
     { title: { ar: "معايير صارمة للجودة", en: "Strict Quality Standards", fr: "Normes de Production Strictes" }, desc: { ar: "شهادات تصنيع دولية معتمدة مثل ISO وGMP وشهادة الحلال.", en: "International premium certifications including ISO, GMP, and Halal.", fr: "Certifications internationales d'élite comme ISO, GMP et Halal." } },
     { title: { ar: "ملايين العملاء السعداء", en: "Millions of Customers Worldwide", fr: "Des Millions de Consommateurs" }, desc: { ar: "ثقة راسخة من ملايين المستهلكين الذين يستمتعون بحيوية يومية مستدامة.", en: "Unshakable trust by millions experiencing radiant health.", fr: "Une fidélité de millions de personnes adeptes de la vitalité." } },
     { title: { ar: "منتجات موجهة للعافية", en: "Wellness-Oriented Products", fr: "Formules Axées sur la Santé" }, desc: { ar: "صيغ فريدة تدعم توازن الجسم الطبيعي وتطرد السموم بفعالية.", en: "Formulated precisely to detox cells and balance body alkalinity.", fr: "Des solutions intelligentes pour purifier et alcaliniser l'organisme." } },
-    { title: { ar: "سمعة تاريخية طيبة", en: "Long-Standing Reputation", fr: "Réputation Historique Solide" }, desc: { ar: "ريادة عالمية لا تضاهى في مجال الفطور الطبية الطبيعية المتميزة.", en: "Unmatched global leadership in premium adaptogenic mushrooms.", fr: "Le leader incontesté des compléments et des champignons adaptogènes." } },
+    { title: { ar: "سمعة تاريخية طيبة", en: "Long-Standing Reputation", fr: "Réputation Historique Solide" }, desc: { ar: "ريادة عالمية لا تضاهى في مجال الفطور العضوية الطبيعية المتميزة.", en: "Unmatched global leadership in premium adaptogenic mushrooms.", fr: "Le leader incontesté des compléments et des champignons adaptogènes." } },
     { title: { ar: "تواجد جغرافي عالمي", en: "Global Presence", fr: "Présence Globale d'Envergure" }, desc: { ar: "مكاتب وفروع رسمية تقدم الدعم والمتابعة للعملاء بمختلف القارات.", en: "Official state-of-the-art logistics and help centers worldwide.", fr: "Des centres d'assistance et de distribution sur tous les continents." } },
     { title: { ar: "التركيز على رضا العميل", en: "Customer Satisfaction Focus", fr: "Priorité Absolue au Client" }, desc: { ar: "نلتزم بتقديم أفضل المتابعات والاستشارات الفردية لتحقيق الفائدة القصوى.", en: "We provide dedicated high-end private coaching for the best results.", fr: "Un accompagnement sur-mesure pour vous garantir une efficacité maximale." } }
   ];
@@ -2762,7 +2762,7 @@ export default function DXNPremiumProductsPage({
           
           <div className="text-center max-w-3xl mx-auto mb-16 select-none">
             <span className="text-[10px] font-black tracking-widest text-[#C5A560] bg-[#EAF0EC] px-4.5 py-1.5 rounded-full uppercase">
-              {lang === 'ar' ? "المعايير والريادة الطبية" : "INTERNATIONAL STANDARDS"}
+              {lang === 'ar' ? "المعايير والريادة الصحية" : "INTERNATIONAL STANDARDS"}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1C352D] mt-4 tracking-tight leading-tight">
               {text.whyChooseDxnTitle}
@@ -2899,7 +2899,7 @@ export default function DXNPremiumProductsPage({
           
           <div className="text-center max-w-3xl mx-auto mb-14 select-none">
             <span className="text-[10px] font-black tracking-widest text-[#C5A560] bg-white px-4.5 py-1.5 rounded-full uppercase border border-[#EADFC9]/30">
-              {lang === 'ar' ? "تفاصيل ودراسات طبية" : "KNOWLEDGE RESOURCE"}
+              {lang === 'ar' ? "حقائق ودراسات علمية" : "KNOWLEDGE RESOURCE"}
             </span>
             <h2 className="text-3xl font-extrabold text-[#1C352D] mt-4 tracking-tight">
               {text.faqTitle}
@@ -3171,7 +3171,7 @@ export default function DXNPremiumProductsPage({
           </h2>
           
           <p className="text-xs sm:text-sm text-[#FAF7F2]/75 max-w-xl mx-auto font-medium">
-            {lang === 'ar' ? "تضمن لالة سميرة توريد دفعات طازجة 100% مباشرة من مزارع دي إكس إن مع توفير كامل المتابعات الصحية والاستشارات الطبية مجاناً." : "Begin your natural healing legacy with factory-sealed batches, swift local shipping, and verified support."}
+            {lang === 'ar' ? "تضمن لالة سميرة توريد دفعات طازجة 100% مباشرة من مزارع دي إكس إن مع توفير كامل المتابعات الصحية والاستشارات الغذائية مجاناً." : "Begin your natural healing legacy with factory-sealed batches, swift local shipping, and verified support."}
           </p>
 
           <div className="h-0.5 w-12 bg-[#C5A560] mx-auto rounded-full my-2"></div>

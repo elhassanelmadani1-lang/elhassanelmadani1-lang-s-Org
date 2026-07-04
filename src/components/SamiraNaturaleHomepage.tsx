@@ -90,7 +90,7 @@ const homeT = {
       p2: "نحن فخورون بكوننا الموزع المعتمد الموثوق لمنتجات دي إكس إن (DXN) الماليزية العالمية، المشهورة بالفطر الريشي الخارق (الجانوديرما) والسبيرولينا الذهبية. نحرص على تقديم تجربة استشارية خاصة لكل عميل لضمان تحقيق أقصى استفادة وصحة مستدامة."
     },
     whatsapp: {
-      title: "هل تحتاج استشارة صحية مجانية؟",
+      title: "هل تحتاج إلى مساعدة في اختيار المنتج؟",
       sub: "لالة سميرة تجيبكم مباشرة وتساعدكم خطوة بخطوة في اختيار المنتجات والباقات الأنسب لصحتكم وأهدافكم اليومية.",
       btn: "تحدث مع سميرة الآن مباشرة عبر واتساب"
     }
@@ -264,10 +264,10 @@ const homeT = {
 
 const ganoSectionT = {
   ar: {
-    badge: "✦ العشبة المعجزة الرائدة للتوازن والتكيف",
-    title: "جانوديرما (الفطر الريشي)",
+    badge: "أفضل عشبة موازنة ومتكيفة",
+    title: "جانوديرما",
     sub: "سر التوازن والنشاط الطبيعي المتكامل",
-    desc: "يتم زراعة وإنتاج فطر جانوديرما دي إكس إن (DXN) تحت ظروف صحية خاضعة لرقابة صارمة وبما يتوافق مع معايير الجودة العالمية ISO 9002 و ISO 14001 و GMP و TGA و معايير الحلال المعتمدة. في أي مرحلة من مراحل الزراعة أو خلال عملية معالجة فطر الريشي، لا يتم استخدام أي مواد كيميائية أو مبيدات حشرية أو ملونات اصطناعية أو نكهات أو أي مواد غريبة مضافة. تعتمد مزارع دي إكس إن (DXN) حصرياً على مواد عضوية طبيعية مثل قش الأرز ونشارة الخشب بدلاً من الأسمدة الكيماوية التقليدية أو مبيدات الأعشاب أو الهرمونات الاصطناعية.",
+    desc: "يتم زراعة وإنتاج جانوديرما من DXN تحت ظروف صحية محكمة وفقًا لمعايير ISO 9002، ISO 14001، TGA، GMP و Halal. لا يتم استخدام أي مواد كيميائية أو مبيدات حشرية أو ألوان صناعية أو نكهات أو أي عناصر غريبة في أي مرحلة من دورة الزراعة أو أثناء معالجة جانوديرما من DXN. يعتمد مزرعة DXN حصريًا على المواد الطبيعية مثل قش الأرز ونشارة الخشب بدلاً من الأسمدة التقليدية أو مبيدات الأعشاب أو الهرمونات.",
     imgCaptions: [
       "مسحوق فطر الريشي (البودرة النقية المعززة)",
       "فطر الجانوديرما الطازج والحيوي الفاخر",
@@ -322,12 +322,12 @@ const ganoSectionT = {
 };
 
 const ganoImages = [
-  "https://i.ibb.co/9kqPzvX0/image.png",
-  "https://i.ibb.co/nM2r8GX7/image.png",
-  "https://i.ibb.co/TxVq1m9g/image.png",
-  "https://i.ibb.co/Kz5w9BXP/image.png",
-  "https://i.ibb.co/5xh5M5JF/image.png",
-  "https://i.ibb.co/pjXGVxWp/image.png"
+  "https://i.ibb.co/PvrhzL6g/image.png",
+  "https://i.ibb.co/YTWXyxLp/image.png",
+  "https://i.ibb.co/1JRH1vpq/image.png",
+  "https://i.ibb.co/yFjDRrHx/image.png",
+  "https://i.ibb.co/qMCrvBkK/image.png",
+  "https://i.ibb.co/xSVN7dWq/image.png"
 ];
 
 const heroSlides = [
@@ -1026,99 +1026,140 @@ export default function SamiraNaturaleHomepage({
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 select-none">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-[10px] sm:text-xs font-black tracking-widest text-[#D4AF37] bg-[#EAF0EC] px-4.5 py-1.5 rounded-full uppercase inline-block"
-            >
-              {ganoSectionT[lang].badge}
-            </motion.span>
-            
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1F2937] dark:text-white mt-4 tracking-tight"
-            >
-              {ganoSectionT[lang].title}
-            </motion.h2>
+          <div className="text-center max-w-3xl mx-auto mb-10 select-none">
+            {isRtl ? (
+              <>
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-base sm:text-lg font-bold text-gray-800 tracking-wide block mb-3"
+                >
+                  {ganoSectionT[lang].badge}
+                </motion.span>
+                
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-4xl sm:text-5xl font-extrabold text-[#728F76] tracking-tight mb-6"
+                >
+                  {ganoSectionT[lang].title}
+                </motion.h2>
+              </>
+            ) : (
+              <>
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-[10px] sm:text-xs font-black tracking-widest text-[#D4AF37] bg-[#EAF0EC] px-4.5 py-1.5 rounded-full uppercase inline-block"
+                >
+                  {ganoSectionT[lang].badge}
+                </motion.span>
+                
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1F2937] dark:text-white mt-4 tracking-tight"
+                >
+                  {ganoSectionT[lang].title}
+                </motion.h2>
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-1 w-24 bg-[#D4AF37] mx-auto mt-4 rounded-full"
-            />
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="h-1 w-24 bg-[#D4AF37] mx-auto mt-4 rounded-full"
+                />
 
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-sm sm:text-base font-bold text-[#0E7A43] mt-3"
-            >
-              {ganoSectionT[lang].sub}
-            </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-sm sm:text-base font-bold text-[#0E7A43] mt-3"
+                >
+                  {ganoSectionT[lang].sub}
+                </motion.p>
+              </>
+            )}
           </div>
 
           {/* Intro Text Block with Elegant Border Accent & Centered Layout */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="bg-gradient-to-br from-[#FAFCFA] to-[#FAFAF8] p-8 md:p-10 rounded-[2.5rem] border border-[#0E7A43]/10 shadow-[0_20px_50px_rgba(14,122,67,0.03)] relative text-center"
-            >
-              <div className="absolute top-6 right-6 opacity-[0.04] text-[#0E7A43]">
-                <Leaf className="w-16 h-16" />
-              </div>
-              
-              <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-slate-300 leading-relaxed font-semibold">
+          <div className="max-w-3xl mx-auto mb-12">
+            {isRtl ? (
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-sm sm:text-base text-gray-700 dark:text-slate-200 leading-relaxed text-center font-semibold"
+              >
                 {ganoSectionT[lang].desc}
-              </p>
-            </motion.div>
+              </motion.p>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="bg-gradient-to-br from-[#FAFCFA] to-[#FAFAF8] p-8 md:p-10 rounded-[2.5rem] border border-[#0E7A43]/10 shadow-[0_20px_50px_rgba(14,122,67,0.03)] relative text-center"
+              >
+                <div className="absolute top-6 right-6 opacity-[0.04] text-[#0E7A43]">
+                  <Leaf className="w-16 h-16" />
+                </div>
+                
+                <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-slate-300 leading-relaxed font-semibold">
+                  {ganoSectionT[lang].desc}
+                </p>
+              </motion.div>
+            )}
           </div>
 
           {/* Interactive Image Grid Gallery (6 Images) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {ganoImages.map((img, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="group relative cursor-pointer overflow-hidden rounded-[2.2rem] bg-neutral-100 border border-[#D4AF37]/15 aspect-[4/3] shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300"
-                onClick={() => setLightboxImg({ url: img, caption: ganoSectionT[lang].imgCaptions[idx] })}
-              >
-                <img
-                  src={img}
-                  alt={ganoSectionT[lang].imgCaptions[idx]}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                
-                {/* Overlay with subtle zoom/eye icon */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
-                    <Eye className="w-6 h-6" />
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
+            {ganoImages.map((img, idx) => {
+              // Custom span and aspect ratio based on index to match screenshots perfectly
+              const gridSpanClass = 
+                idx === 0 ? "col-span-1 aspect-square" :
+                idx === 1 ? "col-span-1 aspect-square" :
+                idx === 2 ? "col-span-2 aspect-[1.4]" :
+                idx === 3 ? "col-span-1 aspect-square" :
+                idx === 4 ? "col-span-1 aspect-square" :
+                "col-span-2 aspect-[1.4]";
+              
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  className={`group relative cursor-pointer overflow-hidden rounded-[1.8rem] sm:rounded-[2.5rem] bg-neutral-100 border border-[#D4AF37]/10 ${gridSpanClass} shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-300`}
+                  onClick={() => setLightboxImg({ url: img, caption: ganoSectionT[lang].imgCaptions[idx] })}
+                >
+                  <img
+                    src={img}
+                    alt={ganoSectionT[lang].imgCaptions[idx]}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  
+                  {/* Overlay with subtle zoom/eye icon */}
+                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+                      <Eye className="w-6 h-6" />
+                    </div>
                   </div>
-                </div>
-
-                {/* Caption at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 via-black/40 to-transparent text-white text-center">
-                  <p className="text-xs sm:text-sm font-bold tracking-wide leading-tight">
-                    {ganoSectionT[lang].imgCaptions[idx]}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

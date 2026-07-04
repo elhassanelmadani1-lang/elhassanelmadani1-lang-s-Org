@@ -160,7 +160,7 @@ export const ganoMassageOilBenefits: Record<'en' | 'fr' | 'ar', BenefitItem[]> =
     { title: "مكونات ممتازة ونقية", desc: "مستخلص من بذور النخيل النقية الغنية بمضادات الأكسدة ومادة الجانوديرما الفائقة." },
     { title: "عناية مريحة بالجسم", desc: "تخفف من تشنج العضلات المنهكة وتساعد على تنشيط الدورة الدموية." },
     { title: "سهل الامتصاص والتطبيق", desc: "ينزلق بنعومة لا تترك ملمساً دهنياً ثقيلاً على الجلد بعد الانتهاء." },
-    { title: "جودة DXN الموثوقة عالمياً", desc: "حائز على أرقى الجوائز الطبية وشهادات الصحة والسلامة الدولية." }
+    { title: "جودة DXN الموثوقة عالمياً", desc: "حائز على أرقى شهادات الجودة العالمية وشهادات الصحة والسلامة الدولية." }
   ],
   en: [
     { title: "Relaxing massage experience", desc: "Promotes deep physiological relaxation and targets areas of chronic tightness." },

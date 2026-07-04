@@ -1,5 +1,8 @@
 import { useState, useEffect, FormEvent } from 'react'; // Verified Applet Entry
 import { motion, AnimatePresence } from 'motion/react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { updateMetaTags } from './utils/seoHelper';
+
 import {
   ShoppingBag,
   Star,
@@ -231,9 +234,91 @@ const reviewTranslations = {
   }
 };
 
+export function getProductSlug(id: string): string {
+  if (!id) return '';
+  const s = id.toLowerCase();
+  if (s === 'face-cream' || s === 'face_cream' || s === 'facecream') {
+    return 'kallow-divine-touch-face-cream';
+  }
+  return s.replace(/_/g, '-');
+}
+
+export function getProductViewNameFromSlug(slug: string): string {
+  if (!slug) return '';
+  const s = slug.toLowerCase();
+  
+  // Custom aliases/mappings requested by user or present in app
+  if (s === 'kallow-divine-touch-face-cream' || s === 'face-cream' || s === 'face_cream' || s === 'facecream') {
+    return 'face-cream';
+  }
+  if (s === 'lions-mane' || s === 'lions_mane') {
+    return 'lions-mane';
+  }
+  if (s === 'spirulina-cereal' || s === 'spirulina_cereal') {
+    return 'spirulina-cereal';
+  }
+  if (s === 'morinzhi-juice' || s === 'morinzhi_juice' || s === 'morinzhi') {
+    return 'morinzhi-juice';
+  }
+  if (s === 'family-pack' || s === 'family_pack') {
+    return 'family-pack';
+  }
+  if (s === 'gano-oil' || s === 'gano_oil' || s === 'ganooil' || s === 'gano-massage-oil') {
+    return 'gano-oil';
+  }
+  if (s === 'soap' || s === 'ganozhi-soap' || s === 'ganozhi_soap') {
+    return 'soap';
+  }
+  if (s === 'coffee-3-in-1' || s === 'coffee-3in1' || s === 'coffee3in1' || s === 'lingzhi-coffee-3-in-1') {
+    return 'coffee3in1';
+  }
+  
+  // Generic dash-to-underscore or underscore-to-dash conversions if needed
+  // Let's check which view name exists in isPremiumProduct list
+  const knownViews = [
+    'cocozhi', 'ganocelium', 'cordyceps', 'cordypine', 'lions-mane', 'roselle', 
+    'spirulina-cereal', 'morinzhi-juice', 'family-pack', 'reishi_gano',
+    'aloe-scrub', 'aloe-lotion', 'aloe-gel', 'aromatic-shower-gel', 'aromatic-body-lotion',
+    'hand-cream', 'lip-balm', 'face-mask',
+    'spirulina', 'toothpaste', 'coffee', 'coffee3in1', 'shampoo', 'gano-oil', 'limonzhi', 'soap', 'reishilium',
+    'potenzhi', 'moricinia',
+    'eye-cream', 'face-serum', 'face-cream', 'night-oil', 'dry-oil',
+    'foaming-cleanser', 'tonic-water', 'tightening-serum', 'hydrating-face-cream', 'sunscreen-spf50',
+    'cooling-after-sun', 'tanning-oil', 'sunscreen-spf30'
+  ];
+  
+  const withDashes = s.replace(/_/g, '-');
+  if (knownViews.includes(withDashes)) {
+    return withDashes;
+  }
+  const withUnderscores = s.replace(/-/g, '_');
+  if (knownViews.includes(withUnderscores)) {
+    return withUnderscores;
+  }
+  if (knownViews.includes(s)) {
+    return s;
+  }
+
+  // Fallback: check allProducts
+  const matchInAll = allProducts.find(p => 
+    p.id.toLowerCase() === s || 
+    p.id.toLowerCase().replace(/_/g, '-') === withDashes ||
+    p.id.toLowerCase().replace(/-/g, '_') === withUnderscores
+  );
+  if (matchInAll) {
+    return matchInAll.id;
+  }
+
+  return s;
+}
+
 export default function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const STORAGE_LANG_KEY = 'samira_naturale_lang';
   const STORAGE_CUST_KEY = 'samira_naturale_cust';
+
 
   // 1. App State
   const [lang, setLang] = useState<LanguageCode>(() => {
@@ -532,6 +617,122 @@ export default function App() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [isShopHovered, setIsShopHovered] = useState(false);
 
+  // 1. URL Path Synchronization
+  useEffect(() => {
+    const path = location.pathname;
+    
+    if (path === '/' || path === '') {
+      if (activeView !== 'store') setActiveView('store');
+    } else if (path === '/shop') {
+      if (activeView !== 'shop') setActiveView('shop');
+    } else if (path === '/bestsellers') {
+      if (activeView !== 'bestsellers') setActiveView('bestsellers');
+    } else if (path === '/checkout') {
+      if (activeView !== 'checkout') setActiveView('checkout');
+    } else if (path === '/packs') {
+      if (activeView !== 'packs') setActiveView('packs');
+    } else if (path === '/pack-detail') {
+      if (activeView !== 'pack-detail') setActiveView('pack-detail');
+    } else if (path.startsWith('/products/')) {
+      const slug = path.split('/products/')[1];
+      if (slug) {
+        const viewName = getProductViewNameFromSlug(slug);
+        if (activeView !== viewName) {
+          setActiveView(viewName);
+        }
+      }
+    } else {
+      // Fallback
+      if (activeView !== 'store') setActiveView('store');
+    }
+  }, [location.pathname]);
+
+  // 2. Dynamic SEO and Metadata Synchronization
+  useEffect(() => {
+    let title = lang === 'ar' ? "سميرة ناتورال | منتجات دي إكس إن العضوية بالمغرب" : "Samira Naturale | Official DXN Products Morocco";
+    let description = lang === 'ar' 
+      ? "متجر سميرة ناتورال هو بوابتكم المعتمدة في المغرب للحصول على أنقى مكملات دي إكس إن (DXN) ومستحضرات التجميل العضوية ومنتجات العناية الشخصية مباشرة لباب بيتكم مع متابعة مخصصة."
+      : "Samira Naturale is your official partner for authentic organic DXN supplements, premium coffees, and herbal hygiene products in Morocco.";
+    let image = logoImg;
+    let type: "website" | "product" = "website";
+    let price: number | undefined = undefined;
+    let sku: string | undefined = undefined;
+
+    // Resolve details if activeView is a product
+    const product = allProducts.find(p => p.id === activeView || p.id.replace(/-/g, '_') === activeView || activeView?.replace(/-/g, '_') === p.id);
+    if (product) {
+      type = "product";
+      price = product.price;
+      sku = product.id;
+      image = product.image;
+      
+      const langKey = (lang === 'es' ? 'en' : lang) as 'en' | 'fr' | 'ar';
+      const prodTrans = product.translations?.[langKey] || product.translations?.['en'] || product.translations?.['ar'];
+      
+      if (prodTrans) {
+        if (lang === 'ar') {
+          title = `${prodTrans.name} الأصلي دي إكس إن بالمغرب | سميرة ناتورال`;
+          description = prodTrans.desc || `${prodTrans.name} طبيعي وعضوي 100% من دي إكس إن المغرب مع شحن سريع مجاني لجميع المدن ومتابعة صحية مجانية مع لالة سميرة.`;
+        } else if (lang === 'fr') {
+          title = `${prodTrans.name} Original DXN Maroc | Samira Naturale`;
+          description = prodTrans.desc || `${prodTrans.name} 100% naturel de DXN Maroc avec livraison gratuite et suivi personnalisé gratuit par Samira.`;
+        } else {
+          title = `${prodTrans.name} Original DXN Morocco | Samira Naturale`;
+          description = prodTrans.desc || `${prodTrans.name} 100% organic by DXN Morocco with free delivery and personalized wellness guidance.`;
+        }
+      }
+    } else {
+      // General Pages
+      if (activeView === 'shop') {
+        if (lang === 'ar') {
+          title = "المتجر المتكامل لمنتجات دي إكس إن العضوية | سميرة ناتورال";
+          description = "تسوقوا أرقى منتجات المكملات الغذائية، القهوة الفاخرة، والعناية الشخصية العضوية من دي إكس إن المغرب. شحن سريع ومجاني.";
+        } else {
+          title = "DXN Organic Shop Morocco | Samira Naturale";
+          description = "Shop the best selection of DXN organic supplements, healthy coffees, and premium botanical cosmetics in Morocco with free shipping.";
+        }
+      } else if (activeView === 'bestsellers') {
+        if (lang === 'ar') {
+          title = "المنتجات الأكثر مبيعاً وطلباً | سميرة ناتورال";
+          description = "اكتشفوا المنتجات الأكثر مبيعاً وشهرة في المغرب من دي إكس إن لتقوية المناعة والتخسيس والنشاط اليومي وعناية البشرة.";
+        } else {
+          title = "DXN Best Sellers Morocco | Samira Naturale";
+          description = "Explore the most popular and highly demanded DXN organic wellness products in Morocco. Certified organic and premium quality.";
+        }
+      } else if (activeView === 'checkout') {
+        if (lang === 'ar') {
+          title = "إتمام طلبك الآمن والدفع عند الاستلام | سميرة ناتورال";
+          description = "أدخل معلومات التوصيل لإرسال طلبك مباشرة. شحن سريع ومجاني لجميع المدن المغربية والدفع عند الاستلام نقداً.";
+        } else {
+          title = "Secure Checkout - COD Morocco | Samira Naturale";
+          description = "Complete your organic order with secure Cash on Delivery across Morocco. Free priority shipping and wellness follow-up.";
+        }
+      } else if (activeView === 'packs' || activeView === 'pack-detail') {
+        if (lang === 'ar') {
+          title = "باقات التوفير الفائقة والمشتركة دي إكس إن | سميرة ناتورال";
+          description = "وفروا أكثر مع باقات التوفير المتكاملة (الخماسي الذهبي، المثلث الذهبي، باقات الجمال والعناية) مع شحن مجاني وإرشاد غذائي مخصص.";
+        } else {
+          title = "DXN Saving Wellness Packs Morocco | Samira Naturale";
+          description = "Save with our comprehensive DXN premium wellness packs like the Golden Triangle, Golden Five, and Beauty packs. Includes free delivery.";
+        }
+      }
+    }
+
+    const currentUrl = typeof window !== "undefined" ? window.location.href : "https://www.samiranaturale.com";
+
+    updateMetaTags({
+      title,
+      description,
+      image,
+      url: currentUrl,
+      type,
+      price,
+      sku,
+      availability: "InStock",
+      currency: "MAD"
+    });
+  }, [activeView, lang]);
+
   const handleNavigateView = (view: typeof activeView) => {
     // If navigating away from a checkout page, verify if they filled the form
     if (activeView !== 'store' && activeView !== 'shop' && activeView !== 'bestsellers' && activeView !== 'checkout' && activeView !== 'gano-oil' && activeView !== 'limonzhi' && activeView !== 'soap' && activeView !== 'reishilium' && activeView !== 'reishi_gano' && activeView !== 'packs' && activeView !== 'pack-detail' && !activeView?.toString().includes('pack')) {
@@ -549,9 +750,24 @@ export default function App() {
         console.error(e);
       }
     }
-    setActiveView(view);
+    
+    // Determine the path based on view
+    let targetPath = '/';
+    if (view === 'store') targetPath = '/';
+    else if (view === 'shop') targetPath = '/shop';
+    else if (view === 'bestsellers') targetPath = '/bestsellers';
+    else if (view === 'checkout') targetPath = '/checkout';
+    else if (view === 'packs') targetPath = '/packs';
+    else if (view === 'pack-detail') targetPath = '/pack-detail';
+    else {
+      // It is a product slug
+      targetPath = `/products/${getProductSlug(view)}`;
+    }
+    
+    navigate(targetPath);
     window.scrollTo(0, 0);
   };
+
 
   const addToCart = (productId: string) => {
     setCart(prev => ({
@@ -1781,7 +1997,7 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
                       {isRtl ? 'إضافة منتج آخر' : lang === 'fr' ? 'Ajouter un autre produit' : 'Add another product'}
                     </button>
 
-                    <p className="text-center text-[9px] text-[#C5A560] mt-1 font-semibold">⚡ التوصيل السريع مجاني بجميع مدن المغرب مع متابعة طبية هدية</p>
+                    <p className="text-center text-[9px] text-[#C5A560] mt-1 font-semibold">⚡ التوصيل السريع مجاني بجميع مدن المغرب مع إرشاد غذائي مخصص هدية</p>
                   </form>
                 </div>
               )}
@@ -5279,7 +5495,7 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
                 
                 <div className="bg-[#FAF8F5] border border-[#EADFC9]/40 p-5 rounded-2xl flex flex-col items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#1C352D] shadow-xs text-lg font-bold">🧪</div>
-                  <h4 className="text-xs font-black text-[#1C352D]">{isRtl ? 'تحت الرقابة الطبية' : 'Contrôle Clinique'}</h4>
+                  <h4 className="text-xs font-black text-[#1C352D]">{isRtl ? 'تحت الرقابة المخبرية' : 'Contrôle Clinique'}</h4>
                   <p className="text-[10px] text-slate-400 font-medium font-sans">{isRtl ? 'منتجات معتمدة ومختبرة مخبرياً لضمان سلامة الجلدة.' : 'Évalué et validé par les normes de phlébologie.'}</p>
                 </div>
 
@@ -5414,8 +5630,8 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
                 <Phone className="w-5 h-5 text-[#C5A560]" />
               </div>
               <div className="flex-1" style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                <h5 className="font-bold text-[#1C352D] text-sm">{isRtl ? 'هل تحتاج إلى استشارة لمستلزماتك الصحية؟' : 'Besoin de conseils personnalisés ?'}</h5>
-                <p className="text-[11px] text-slate-500 mt-0.5">{isRtl ? 'تواصل معي مباشرة لتحديد المنتجات المناسبة لحالتك الصحية.' : 'Contactez-moi directement pour choisir les formules les plus adaptées.'}</p>
+                <h5 className="font-bold text-[#1C352D] text-sm">{isRtl ? 'هل تحتاج إلى مساعدة في اختيار المنتج؟' : 'Besoin de conseils personnalisés ?'}</h5>
+                <p className="text-[11px] text-slate-500 mt-0.5">{isRtl ? 'تواصل معي مباشرة وسأساعدك خطوة بخطوة في اختيار المنتجات والباقات الأنسب لصحتك.' : 'Contactez-moi directement pour choisir les formules les plus adaptées.'}</p>
               </div>
               <button
                 type="button"

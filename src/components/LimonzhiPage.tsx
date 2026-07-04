@@ -911,7 +911,7 @@ ${upsellsText || (isRtl ? '• لا توجد إضافات' : '• Aucun add-on')
                 </div>
 
                 <p className="text-[11px] text-[#A76f11] font-bold leading-relaxed bg-[#FAF3E5] p-3 rounded-xl border border-[#F2ECE0]">
-                  💡 {isRtl ? "شراء أي باقة من باقات التوفير (علبتين فما فوق) يضمن لك شحناً مجانياً سريعاً مع متابعة طبية وإرشاد استخدام مخصص بالكامل من لالة سميرة." : "Buying any saving bundle automatically overrides normal shipping tariffs and ensures a fast priority delivery across the Moroccan map."}
+                  💡 {isRtl ? "شراء أي باقة من باقات التوفير (علبتين فما فوق) يضمن لك شحناً مجانياً سريعاً مع متابعة صحية وإرشاد استخدام مخصص بالكامل من لالة سميرة." : "Buying any saving bundle automatically overrides normal shipping tariffs and ensures a fast priority delivery across the Moroccan map."}
                 </p>
               </div>
 

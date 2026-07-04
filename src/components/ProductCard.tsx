@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { Star, Heart, Eye, ShoppingBag, Check, X, ShieldCheck, Sparkles } from 'lucide-react';
 import { wellnessPacks } from '../data/wellnessPacksData';
+
+function getProductSlug(id: string): string {
+  if (!id) return '';
+  const s = id.toLowerCase();
+  if (s === 'face-cream' || s === 'face_cream' || s === 'facecream') {
+    return 'kallow-divine-touch-face-cream';
+  }
+  return s.replace(/_/g, '-');
+}
+
 
 export interface ProductCardProps {
   key?: any;
@@ -167,8 +178,8 @@ export default function ProductCard({
           </button>
 
           {/* Smooth-Drifting Interactive Floating Product Photo Inside a Premium Inner Frame */}
-          <div 
-            onClick={onViewDetails}
+          <Link 
+            to={`/products/${getProductSlug(prod.id)}`}
             className="w-full h-full p-1 flex items-center justify-center cursor-pointer relative z-2"
           >
             <motion.div
@@ -188,20 +199,17 @@ export default function ProductCard({
                 referrerPolicy="no-referrer"
               />
             </motion.div>
-          </div>
+          </Link>
 
           {/* Quick View Button Overlay */}
           <div className="absolute inset-x-0 bottom-5 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-3 group-hover:translate-y-0 z-10">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onViewDetails();
-              }}
+            <Link
+              to={`/products/${getProductSlug(prod.id)}`}
               className="px-4.5 py-3 rounded-full bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border border-neutral-200/30 dark:border-slate-800/60 text-[#1F4D3A] dark:text-white font-black text-[11px] uppercase tracking-wider shadow-lg flex items-center gap-2 hover:bg-[#1F4D3A] hover:text-white dark:hover:bg-amber-500 dark:hover:text-slate-950 transition-all cursor-pointer hover:scale-105 active:scale-95"
             >
               <Eye className="w-3.5 h-3.5" />
               <span>{t.quickView}</span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -225,11 +233,13 @@ export default function ProductCard({
 
             {/* Product Name (Bold, Elegant Typography & Clamped) */}
             <h3 
-              onClick={onViewDetails}
-              className="text-base sm:text-lg font-extrabold text-[#1F4D3A] dark:text-white hover:text-[#C9A227] dark:hover:text-amber-400 transition-colors duration-250 cursor-pointer leading-snug line-clamp-2 mb-1.5 min-h-[2.6rem] flex items-center font-sans tracking-tight"
+              className="text-base sm:text-lg font-extrabold text-[#1F4D3A] dark:text-white transition-colors duration-250 leading-snug line-clamp-2 mb-1.5 min-h-[2.6rem] flex items-center font-sans tracking-tight"
             >
-              {translation?.name}
+              <Link to={`/products/${getProductSlug(prod.id)}`} className="hover:text-[#C9A227] dark:hover:text-amber-400">
+                {translation?.name}
+              </Link>
             </h3>
+
 
             {/* Benefit-driven Muted Subtitle */}
             <p className="text-[10.5px] text-[#C9A227] dark:text-amber-400/90 font-black uppercase tracking-wider truncate mb-5 flex items-center gap-1">
@@ -305,8 +315,8 @@ export default function ProductCard({
         className="flex md:hidden flex-col justify-between bg-white dark:bg-slate-900 border border-neutral-150 dark:border-slate-800 rounded-xl shadow-xs p-2 h-full relative"
         id={`product-card-mobile-${prod.id}`}
       >
-        <div 
-          onClick={onViewDetails}
+        <Link 
+          to={`/products/${getProductSlug(prod.id)}`}
           className="relative aspect-square w-full rounded-lg overflow-hidden bg-white dark:bg-slate-950 flex items-center justify-center cursor-pointer select-none border border-neutral-100 dark:border-slate-850"
         >
           {/* Discount Badge in the corner */}
@@ -320,7 +330,7 @@ export default function ProductCard({
             className="w-full h-full object-cover filter drop-shadow-md transition-transform duration-300 active:scale-105"
             referrerPolicy="no-referrer"
           />
-        </div>
+        </Link>
 
         <div className="flex-1 flex flex-col justify-between pt-1 pb-0 select-none">
           <div className="space-y-0.5">
@@ -333,11 +343,13 @@ export default function ProductCard({
 
             {/* Product Title (11px-12px, max 2 lines, line-clamp-2) */}
             <h3 
-              onClick={onViewDetails}
               className="text-[11px] font-extrabold text-[#1F4D3A] dark:text-white leading-tight line-clamp-2 min-h-[2.1rem] flex items-center cursor-pointer font-sans tracking-tight"
             >
-              {translation?.name}
+              <Link to={`/products/${getProductSlug(prod.id)}`} className="hover:text-[#C9A227] dark:hover:text-amber-400">
+                {translation?.name}
+              </Link>
             </h3>
+
           </div>
 
           <div className="mt-1 pt-1 border-t border-neutral-100 dark:border-slate-850">
