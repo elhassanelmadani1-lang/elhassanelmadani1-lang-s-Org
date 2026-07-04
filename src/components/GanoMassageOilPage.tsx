@@ -88,7 +88,20 @@ export default function GanoMassageOilPage({ lang, isRtl, t, WHATSAPP_PHONE, set
   };
 
   const scrollToCheckout = () => {
-    trackInitiateCheckout(quantity, calculateTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'gano-oil', quantity: quantity }
+    ];
+    if (addShampoo) contents.push({ id: 'shampoo', quantity: 1 });
+    if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addCoffee3in1) contents.push({ id: 'coffee3in1', quantity: 1 });
+    
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('gano-checkout-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -148,7 +161,21 @@ ${upsellsText || (isRtl ? '• لا توجد إضافات' : '• Aucun add-on')
     setTimeout(() => {
       setIsOrdering(false);
       setOrderCompleted(true);
-      trackPurchase(finalBill, 'MAD', ['gano-oil']);
+      const contents: Array<{ id: string; quantity: number }> = [
+        { id: 'gano-oil', quantity: quantity }
+      ];
+      if (addShampoo) contents.push({ id: 'shampoo', quantity: 1 });
+      if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+      if (addCoffee3in1) contents.push({ id: 'coffee3in1', quantity: 1 });
+
+      trackPurchase(
+        finalBill,
+        'MAD',
+        contents.map(c => c.id),
+        contents,
+        undefined,
+        contents.reduce((acc, c) => acc + c.quantity, 0)
+      );
       const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
       try {
         const newWindow = window.open(url, '_blank');

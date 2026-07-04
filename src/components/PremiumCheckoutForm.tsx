@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, useRef } from 'react';
 import { trackInitiateCheckout, trackPurchase } from '../utils/metaPixel';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -222,8 +222,55 @@ export default function PremiumCheckoutForm({
     } catch (e) {
       console.error("Failed to load saved customer details", e);
     }
-    trackInitiateCheckout(1, grandTotal || 0);
   }, []);
+
+  const hasInitiatedCheckoutRef = useRef(false);
+  useEffect(() => {
+    if (!hasInitiatedCheckoutRef.current) {
+      // Calculate local grand total safely
+      let localAddPrice = 0;
+      Object.entries(additionalItems).forEach(([id, q]) => {
+        const numQty = Number(q) || 0;
+        if (numQty > 0) {
+          const info = getProductInfo(id);
+          localAddPrice += info.price * numQty;
+        }
+      });
+      let localBundlesPrice = 0;
+      Object.entries(activeBundles).forEach(([id, q]) => {
+        const numQty = Number(q) || 0;
+        if (numQty > 0) {
+          const b = bundles.find(item => item.id === id);
+          if (b) {
+            localBundlesPrice += b.discountedPrice * numQty;
+          }
+        }
+      });
+      const localMainProductPrice = getProductInfo(productId).price * qty;
+      const localSubtotal = localMainProductPrice + localAddPrice + localBundlesPrice;
+      let localDiscountPercentage = 0;
+      if (qty === 3) localDiscountPercentage = 5;
+      else if (qty >= 4) localDiscountPercentage = 10;
+      const localMainProductDiscount = Math.round((localMainProductPrice * localDiscountPercentage) / 100);
+      const localGrandTotal = localSubtotal - localMainProductDiscount;
+
+      if (localGrandTotal > 0) {
+        hasInitiatedCheckoutRef.current = true;
+        const totalItems = qty + Object.values(additionalItems).reduce((acc, count) => Number(acc) + (Number(count) || 0), 0);
+        const contents = [
+          { id: productId, quantity: qty },
+          ...Object.entries(additionalItems).map(([id, quantity]) => ({ id, quantity: Number(quantity) || 0 }))
+        ];
+        trackInitiateCheckout(
+          totalItems,
+          localGrandTotal,
+          'MAD',
+          contents,
+          contents.map(c => c.id)
+        );
+      }
+    }
+  }, [productId, qty, additionalItems, activeBundles]);
 
   // Save data to localStorage on changes
   useEffect(() => {
@@ -700,7 +747,18 @@ export default function PremiumCheckoutForm({
         itemsText: orderedProducts.map(p => `• ${p.qty} × ${p.name} [${p.price} DH]`).join('\n')
       };
       setOrderSuccessData(orderDetails);
-      trackPurchase(grandTotal, 'MAD', [productId]);
+      const contents = [
+        { id: productId, quantity: qty },
+        ...Object.entries(additionalItems).map(([id, quantity]) => ({ id, quantity: Number(quantity) || 0 }))
+      ];
+      trackPurchase(
+        grandTotal,
+        'MAD',
+        contents.map(c => c.id),
+        contents,
+        orderNo,
+        qty + Object.values(additionalItems).reduce((acc, count) => Number(acc) + (Number(count) || 0), 0)
+      );
       if (onOrderCompleted) onOrderCompleted(orderDetails);
     }, 1200);
   };

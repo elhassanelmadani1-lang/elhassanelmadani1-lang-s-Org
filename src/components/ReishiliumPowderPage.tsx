@@ -113,7 +113,21 @@ export default function ReishiliumPowderPage({ lang, isRtl, t, WHATSAPP_PHONE, s
   };
 
   const scrollToCheckout = () => {
-    trackInitiateCheckout(quantity, calculateTotal());
+    const mainId = reishiVariant === 'small' ? 'reishilium' : 'reishilium'; // using reishilium ID
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: mainId, quantity: quantity }
+    ];
+    if (addSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addCoffee) contents.push({ id: 'coffee', quantity: 1 });
+    if (addSoap) contents.push({ id: 'soap', quantity: 1 });
+
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('reishilium-checkout-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -177,7 +191,22 @@ ${upsellsText || (isRtl ? '• لا توجد إضافات' : '• Aucun add-on')
     setTimeout(() => {
       setIsOrdering(false);
       setOrderCompleted(true);
-      trackPurchase(finalBill, 'MAD', [reishiVariant === 'small' ? 'reishilium-22g' : 'reishilium-70g']);
+      const mainId = reishiVariant === 'small' ? 'reishilium' : 'reishilium';
+      const contents: Array<{ id: string; quantity: number }> = [
+        { id: mainId, quantity: quantity }
+      ];
+      if (addSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+      if (addCoffee) contents.push({ id: 'coffee', quantity: 1 });
+      if (addSoap) contents.push({ id: 'soap', quantity: 1 });
+
+      trackPurchase(
+        finalBill,
+        'MAD',
+        contents.map(c => c.id),
+        contents,
+        undefined,
+        contents.reduce((acc, c) => acc + c.quantity, 0)
+      );
       const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
       try {
         const newWindow = window.open(url, '_blank');

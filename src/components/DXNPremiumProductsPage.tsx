@@ -2050,7 +2050,15 @@ export default function DXNPremiumProductsPage({
       setSelectedVariantId('');
     }
     if (activeProduct) {
-      trackViewContent(activeProduct.id, activeProduct.name.en);
+      const prodName = activeProduct.name[lang] || activeProduct.name.en || activeProduct.id;
+      trackViewContent(
+        prodName,
+        activeProduct.id,
+        activeProduct.price,
+        'MAD',
+        'premium_packs',
+        [{ id: activeProduct.id, quantity: 1 }]
+      );
     }
   }, [activeProductIndex]);
 
@@ -2224,7 +2232,14 @@ export default function DXNPremiumProductsPage({
 
     setTimeout(() => {
       setIsSubmitting(false);
-      trackPurchase(finalPrice, 'MAD', [currentProductData.id]);
+      trackPurchase(
+        finalPrice,
+        'MAD',
+        [currentProductData.id],
+        [{ id: currentProductData.id, quantity: orderQuantity }],
+        undefined,
+        orderQuantity
+      );
       try {
         const newWindow = window.open(whatsappUrl, '_blank');
         if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
@@ -2238,7 +2253,13 @@ export default function DXNPremiumProductsPage({
   };
 
   const scrollToCheckout = () => {
-    trackInitiateCheckout(orderQuantity, currentProductData.price * orderQuantity);
+    trackInitiateCheckout(
+      orderQuantity,
+      currentProductData.price * orderQuantity,
+      'MAD',
+      [{ id: currentProductData.id, quantity: orderQuantity }],
+      [currentProductData.id]
+    );
     const el = document.getElementById('premium-checkout-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };

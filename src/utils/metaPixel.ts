@@ -68,13 +68,25 @@ export const trackPageView = (): void => {
 /**
  * Tracks content views, e.g., viewing specific products or packs.
  */
-export const trackViewContent = (name: string, id?: string, value?: number, currency = 'MAD'): void => {
+export const trackViewContent = (
+  name: string,
+  id?: string,
+  value?: number,
+  currency = 'MAD',
+  category?: string,
+  contents?: Array<{ id: string; quantity: number }>
+): void => {
   if (typeof window !== 'undefined' && (window as any).fbq) {
+    const finalContents = contents || (id ? [{ id: id, quantity: 1 }] : undefined);
+    const finalContentIds = id ? [id] : (contents ? contents.map(item => item.id) : undefined);
     (window as any).fbq('track', 'ViewContent', {
+      content_ids: finalContentIds,
       content_name: name,
-      content_ids: id ? [id] : undefined,
+      content_category: category,
       value: value,
       currency: currency,
+      contents: finalContents,
+      content_type: 'product',
     });
   }
 };
@@ -82,13 +94,25 @@ export const trackViewContent = (name: string, id?: string, value?: number, curr
 /**
  * Tracks add to cart events.
  */
-export const trackAddToCart = (name: string, id?: string, value?: number, currency = 'MAD'): void => {
+export const trackAddToCart = (
+  name: string,
+  id?: string,
+  value?: number,
+  currency = 'MAD',
+  quantity = 1,
+  contents?: Array<{ id: string; quantity: number }>
+): void => {
   if (typeof window !== 'undefined' && (window as any).fbq) {
+    const finalContents = contents || (id ? [{ id: id, quantity: quantity }] : undefined);
+    const finalContentIds = id ? [id] : (contents ? contents.map(item => item.id) : undefined);
     (window as any).fbq('track', 'AddToCart', {
+      content_ids: finalContentIds,
       content_name: name,
-      content_ids: id ? [id] : undefined,
       value: value,
       currency: currency,
+      quantity: quantity,
+      contents: finalContents,
+      content_type: 'product',
     });
   }
 };
@@ -96,12 +120,24 @@ export const trackAddToCart = (name: string, id?: string, value?: number, curren
 /**
  * Tracks initiating checkout sequence.
  */
-export const trackInitiateCheckout = (numItems?: number, value?: number, currency = 'MAD'): void => {
+export const trackInitiateCheckout = (
+  numItems?: number,
+  value?: number,
+  currency = 'MAD',
+  contents?: Array<{ id: string; quantity: number }>,
+  contentIds?: string[]
+): void => {
   if (typeof window !== 'undefined' && (window as any).fbq) {
+    const finalContentIds = contentIds || (contents ? contents.map(item => item.id) : undefined);
+    const finalContents = contents || (contentIds ? contentIds.map(id => ({ id, quantity: 1 })) : undefined);
+
     (window as any).fbq('track', 'InitiateCheckout', {
-      num_items: numItems,
       value: value,
       currency: currency,
+      num_items: numItems,
+      contents: finalContents,
+      content_type: 'product',
+      content_ids: finalContentIds,
     });
   }
 };
@@ -109,13 +145,27 @@ export const trackInitiateCheckout = (numItems?: number, value?: number, currenc
 /**
  * Tracks successful purchase conversions.
  */
-export const trackPurchase = (value: number, currency = 'MAD', contentIds?: string[]): void => {
+export const trackPurchase = (
+  value: number,
+  currency = 'MAD',
+  contentIds?: string[],
+  contents?: Array<{ id: string; quantity: number }>,
+  orderId?: string,
+  numItems?: number
+): void => {
   if (typeof window !== 'undefined' && (window as any).fbq) {
+    const finalContentIds = contentIds || (contents ? contents.map(item => item.id) : undefined);
+    const finalContents = contents || (contentIds ? contentIds.map(id => ({ id, quantity: 1 })) : undefined);
+    const finalNumItems = numItems || (finalContents ? finalContents.reduce((sum, item) => sum + item.quantity, 0) : undefined);
+
     (window as any).fbq('track', 'Purchase', {
       value: value,
       currency: currency,
-      content_ids: contentIds,
+      contents: finalContents,
+      content_ids: finalContentIds,
       content_type: 'product',
+      order_id: orderId,
+      num_items: finalNumItems,
     });
   }
 };

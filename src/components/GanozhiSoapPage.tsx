@@ -88,7 +88,20 @@ export default function GanozhiSoapPage({ lang, isRtl, t, WHATSAPP_PHONE, setAct
   };
 
   const scrollToCheckout = () => {
-    trackInitiateCheckout(quantity, calculateTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'soap', quantity: quantity }
+    ];
+    if (addMassageOil) contents.push({ id: 'gano-oil', quantity: 1 });
+    if (addShampoo) contents.push({ id: 'shampoo', quantity: 1 });
+    if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('soap-checkout-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -148,7 +161,21 @@ ${upsellsText || (isRtl ? '• لا توجد إضافات' : '• Aucun add-on')
     setTimeout(() => {
       setIsOrdering(false);
       setOrderCompleted(true);
-      trackPurchase(finalBill, 'MAD', ['soap']);
+      const contents: Array<{ id: string; quantity: number }> = [
+        { id: 'soap', quantity: quantity }
+      ];
+      if (addMassageOil) contents.push({ id: 'gano-oil', quantity: 1 });
+      if (addShampoo) contents.push({ id: 'shampoo', quantity: 1 });
+      if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+
+      trackPurchase(
+        finalBill,
+        'MAD',
+        contents.map(c => c.id),
+        contents,
+        undefined,
+        contents.reduce((acc, c) => acc + c.quantity, 0)
+      );
       const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
       try {
         const newWindow = window.open(url, '_blank');

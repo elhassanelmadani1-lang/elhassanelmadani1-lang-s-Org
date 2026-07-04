@@ -91,7 +91,21 @@ export default function LimonzhiPage({ lang, isRtl, t, WHATSAPP_PHONE, setActive
   };
 
   const scrollToCheckout = () => {
-    trackInitiateCheckout(quantity, calculateTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'limonzhi', quantity: quantity }
+    ];
+    if (addShampoo) contents.push({ id: 'shampoo', quantity: 1 });
+    if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addCoffee3in1) contents.push({ id: 'coffee3in1', quantity: 1 });
+    if (addSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('limonzhi-checkout-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -152,7 +166,22 @@ ${upsellsText || (isRtl ? '• لا توجد إضافات' : '• Aucun add-on')
     setTimeout(() => {
       setIsOrdering(false);
       setOrderCompleted(true);
-      trackPurchase(finalBill, 'MAD', ['limonzhi']);
+      const contents: Array<{ id: string; quantity: number }> = [
+        { id: 'limonzhi', quantity: quantity }
+      ];
+      if (addShampoo) contents.push({ id: 'shampoo', quantity: 1 });
+      if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+      if (addCoffee3in1) contents.push({ id: 'coffee3in1', quantity: 1 });
+      if (addSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+
+      trackPurchase(
+        finalBill,
+        'MAD',
+        contents.map(c => c.id),
+        contents,
+        undefined,
+        contents.reduce((acc, c) => acc + c.quantity, 0)
+      );
       const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
       try {
         const newWindow = window.open(url, '_blank');

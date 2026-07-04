@@ -774,9 +774,17 @@ export default function App() {
       ...prev,
       [productId]: (prev[productId] || 0) + 1
     }));
-    trackAddToCart(productId, productId);
+    
+    // Find product details in allProducts to enrich trackAddToCart event parameters
+    const product = allProducts.find(p => p.id === productId);
+    if (product) {
+      const prodName = product.translations[lang]?.name || product.translations['en']?.name || product.id;
+      trackAddToCart(prodName, product.id, product.price, 'MAD', 1);
+    } else {
+      trackAddToCart(productId, productId);
+    }
+
     setIsCartOpen(true);
-    trackInitiateCheckout();
   };
 
   const updateCartQty = (productId: string, delta: number) => {
@@ -991,9 +999,22 @@ export default function App() {
     // Also track ViewContent for specific product views
     const productViews = ['spirulina', 'toothpaste', 'coffee', 'coffee3in1', 'shampoo', 'gano-oil', 'limonzhi', 'soap', 'reishilium', 'reishi_gano'];
     if (productViews.includes(activeView)) {
-      trackViewContent(activeView, activeView);
+      const product = allProducts.find(p => p.id === activeView);
+      if (product) {
+        const prodName = product.translations[lang]?.name || product.translations['en']?.name || product.id;
+        trackViewContent(
+          prodName,
+          product.id,
+          product.price,
+          'MAD',
+          product.category,
+          [{ id: product.id, quantity: 1 }]
+        );
+      } else {
+        trackViewContent(activeView, activeView);
+      }
     }
-  }, [activeView]);
+  }, [activeView, lang]);
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -1293,7 +1314,19 @@ export default function App() {
 
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
 
-    trackPurchase(totalPrice, 'MAD', [spirulinaVariant === '120' ? 'spirulina-120' : 'spirulina-500']);
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'spirulina', quantity: spirulinaQty }
+    ];
+    if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addCoffee) contents.push({ id: 'coffee', quantity: 1 });
+    trackPurchase(
+      totalPrice,
+      'MAD',
+      contents.map(c => c.id),
+      contents,
+      orderResult.orderNo,
+      contents.reduce((acc, c) => acc + c.quantity, 0)
+    );
 
     setTimeout(() => {
       setIsOrdering(false);
@@ -1381,7 +1414,19 @@ export default function App() {
 
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
 
-    trackPurchase(finalAmount, 'MAD', ['toothpaste']);
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'toothpaste', quantity: toothpasteQty }
+    ];
+    if (addToothpasteSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addToothpasteCoffee) contents.push({ id: 'coffee', quantity: 1 });
+    trackPurchase(
+      finalAmount,
+      'MAD',
+      contents.map(c => c.id),
+      contents,
+      orderResult.orderNo,
+      contents.reduce((acc, c) => acc + c.quantity, 0)
+    );
 
     setTimeout(() => {
       setIsOrdering(false);
@@ -1390,7 +1435,18 @@ export default function App() {
   };
 
   const scrollToToothpasteCheckout = () => {
-    trackInitiateCheckout(toothpasteQty, calculateToothpasteTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'toothpaste', quantity: toothpasteQty }
+    ];
+    if (addToothpasteSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addToothpasteCoffee) contents.push({ id: 'coffee', quantity: 1 });
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateToothpasteTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('toothpaste-checkout-card-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -1469,7 +1525,19 @@ export default function App() {
 
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
 
-    trackPurchase(finalAmount, 'MAD', ['coffee']);
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'coffee', quantity: coffeeQty }
+    ];
+    if (addCoffeeSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addCoffeeToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    trackPurchase(
+      finalAmount,
+      'MAD',
+      contents.map(c => c.id),
+      contents,
+      orderResult.orderNo,
+      contents.reduce((acc, c) => acc + c.quantity, 0)
+    );
 
     setTimeout(() => {
       setIsOrdering(false);
@@ -1477,7 +1545,18 @@ export default function App() {
     }, 1500);
   };
   const scrollToCoffeeCheckout = () => {
-    trackInitiateCheckout(coffeeQty, calculateCoffeeTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'coffee', quantity: coffeeQty }
+    ];
+    if (addCoffeeSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addCoffeeToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateCoffeeTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('coffee-checkout-card-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -1537,7 +1616,20 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
 
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
 
-    trackPurchase(totalPrice + (coffee3in1Qty === 1 ? 20 : 0), 'MAD', ['coffee3in1']);
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'coffee3in1', quantity: coffee3in1Qty }
+    ];
+    if (addCoffee3in1Spirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addCoffee3in1Toothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addCoffee3in1Coffee) contents.push({ id: 'coffee', quantity: 1 });
+    trackPurchase(
+      totalPrice + (coffee3in1Qty === 1 ? 20 : 0),
+      'MAD',
+      contents.map(c => c.id),
+      contents,
+      undefined,
+      contents.reduce((acc, c) => acc + c.quantity, 0)
+    );
 
     setTimeout(() => {
       setIsOrdering(false);
@@ -1546,7 +1638,19 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
   };
 
   const scrollToCoffee3in1Checkout = () => {
-    trackInitiateCheckout(coffee3in1Qty, calculateCoffee3in1Total());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'coffee3in1', quantity: coffee3in1Qty }
+    ];
+    if (addCoffee3in1Spirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addCoffee3in1Toothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addCoffee3in1Coffee) contents.push({ id: 'coffee', quantity: 1 });
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateCoffee3in1Total(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('coffee3in1-checkout-card-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -1636,7 +1740,20 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
 
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
 
-    trackPurchase(finalAmount, 'MAD', ['shampoo']);
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'shampoo', quantity: shampooQty }
+    ];
+    if (addShampooSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addShampooToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addShampooCoffee3in1) contents.push({ id: 'coffee3in1', quantity: 1 });
+    trackPurchase(
+      finalAmount,
+      'MAD',
+      contents.map(c => c.id),
+      contents,
+      orderResult.orderNo,
+      contents.reduce((acc, c) => acc + c.quantity, 0)
+    );
 
     setTimeout(() => {
       setIsOrdering(false);
@@ -1645,12 +1762,35 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
   };
 
   const scrollToShampooCheckout = () => {
-    trackInitiateCheckout(shampooQty, calculateShampooTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'shampoo', quantity: shampooQty }
+    ];
+    if (addShampooSpirulina) contents.push({ id: 'spirulina', quantity: 1 });
+    if (addShampooToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addShampooCoffee3in1) contents.push({ id: 'coffee3in1', quantity: 1 });
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateShampooTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('shampoo-checkout-card-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const scrollToCheckout = () => {
-    trackInitiateCheckout(spirulinaQty, calculateTotal());
+    const contents: Array<{ id: string; quantity: number }> = [
+      { id: 'spirulina', quantity: spirulinaQty }
+    ];
+    if (addToothpaste) contents.push({ id: 'toothpaste', quantity: 1 });
+    if (addCoffee) contents.push({ id: 'coffee', quantity: 1 });
+    trackInitiateCheckout(
+      contents.reduce((acc, c) => acc + c.quantity, 0),
+      calculateTotal(),
+      'MAD',
+      contents,
+      contents.map(c => c.id)
+    );
     document.getElementById('checkout-card-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -1706,7 +1846,15 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
 
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
 
-    trackPurchase(grandTotal, 'MAD', Object.keys(cart));
+    const contents = Object.entries(cart).map(([id, quantity]) => ({ id, quantity: Number(quantity) || 0 }));
+    trackPurchase(
+      grandTotal,
+      'MAD',
+      contents.map(c => c.id),
+      contents,
+      orderResult.orderNo,
+      contents.reduce((acc, c) => acc + c.quantity, 0)
+    );
 
     setTimeout(() => {
       setIsOrdering(false);

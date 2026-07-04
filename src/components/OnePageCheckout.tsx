@@ -195,7 +195,13 @@ export default function OnePageCheckout({
   useEffect(() => {
     const totalItems = cartItems.reduce((acc, item) => acc + item.qty, 0);
     if (totalItems > 0) {
-      trackInitiateCheckout(totalItems, subtotal);
+      trackInitiateCheckout(
+        totalItems,
+        subtotal,
+        'MAD',
+        cartItems.map(item => ({ id: item.id, quantity: item.qty })),
+        cartItems.map(item => item.id)
+      );
     }
   }, []);
 
@@ -260,7 +266,12 @@ export default function OnePageCheckout({
     setTimeout(() => {
       setIsOrdering(false);
       setIsSuccess(true);
-      trackPurchase(subtotal, 'MAD', cartItems.map(item => item.id));
+      trackPurchase(
+        subtotal,
+        'MAD',
+        cartItems.map(item => item.id),
+        cartItems.map(item => ({ id: item.id, quantity: item.qty }))
+      );
       try {
         const newWindow = window.open(whatsappUrl, '_blank');
         if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
