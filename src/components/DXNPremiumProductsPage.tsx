@@ -2225,7 +2225,15 @@ export default function DXNPremiumProductsPage({
     setTimeout(() => {
       setIsSubmitting(false);
       trackPurchase(finalPrice, 'MAD', [currentProductData.id]);
-      window.open(whatsappUrl, '_blank');
+      try {
+        const newWindow = window.open(whatsappUrl, '_blank');
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          window.location.href = whatsappUrl;
+        }
+      } catch (err) {
+        console.error("Popup blocked, trying direct redirect:", err);
+        window.location.href = whatsappUrl;
+      }
     }, 1200);
   };
 

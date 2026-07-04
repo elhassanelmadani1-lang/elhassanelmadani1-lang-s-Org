@@ -300,7 +300,15 @@ export default function PremiumPacksView({
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     
     setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
+      try {
+        const newWindow = window.open(whatsappUrl, '_blank');
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          window.location.href = whatsappUrl;
+        }
+      } catch (err) {
+        console.error("Popup blocked, trying direct redirect:", err);
+        window.location.href = whatsappUrl;
+      }
     }, 1500);
   };
 

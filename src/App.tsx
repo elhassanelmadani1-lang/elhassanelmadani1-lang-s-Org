@@ -990,6 +990,18 @@ export default function App() {
     }[pl];
   };
 
+  const safeOpenWhatsApp = (url: string) => {
+    try {
+      const newWindow = window.open(url, '_blank');
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = url;
+      }
+    } catch (e) {
+      console.error("Popup blocked, trying direct redirect:", e);
+      window.location.href = url;
+    }
+  };
+
   // Calculate live order totals based on chosen quantity and optional add-ons
   const getBasePrice = () => {
     const baseUnit = spirulinaVariant === '120' ? 190 : 490;
@@ -1069,7 +1081,7 @@ export default function App() {
 
     setTimeout(() => {
       setIsOrdering(false);
-      window.open(url, '_blank');
+      safeOpenWhatsApp(url);
     }, 1500);
   };
 
@@ -1157,7 +1169,7 @@ export default function App() {
 
     setTimeout(() => {
       setIsOrdering(false);
-      window.open(url, '_blank');
+      safeOpenWhatsApp(url);
     }, 1500);
   };
 
@@ -1245,7 +1257,7 @@ export default function App() {
 
     setTimeout(() => {
       setIsOrdering(false);
-      window.open(url, '_blank');
+      safeOpenWhatsApp(url);
     }, 1500);
   };
   const scrollToCoffeeCheckout = () => {
@@ -1313,7 +1325,7 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
 
     setTimeout(() => {
       setIsOrdering(false);
-      window.open(url, '_blank');
+      safeOpenWhatsApp(url);
     }, 1500);
   };
 
@@ -1412,7 +1424,7 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
 
     setTimeout(() => {
       setIsOrdering(false);
-      window.open(url, '_blank');
+      safeOpenWhatsApp(url);
     }, 1500);
   };
 
@@ -1483,7 +1495,7 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
     setTimeout(() => {
       setIsOrdering(false);
       setIsCartOpen(false);
-      window.open(url, '_blank');
+      safeOpenWhatsApp(url);
     }, 1500);
   };
 

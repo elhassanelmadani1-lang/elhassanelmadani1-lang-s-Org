@@ -179,7 +179,15 @@ ${upsellsText || (isRtl ? '• لا توجد إضافات' : '• Aucun add-on')
       setOrderCompleted(true);
       trackPurchase(finalBill, 'MAD', [reishiVariant === 'small' ? 'reishilium-22g' : 'reishilium-70g']);
       const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
+      try {
+        const newWindow = window.open(url, '_blank');
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          window.location.href = url;
+        }
+      } catch (err) {
+        console.error("Popup blocked, trying direct redirect:", err);
+        window.location.href = url;
+      }
     }, 1200);
   };
 
