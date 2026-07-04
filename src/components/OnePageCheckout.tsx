@@ -39,6 +39,7 @@ export default function OnePageCheckout({
   const [formError, setFormError] = useState('');
   const [isOrdering, setIsOrdering] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [orderWhatsappUrl, setOrderWhatsappUrl] = useState('');
 
   // Load saved customer info
   useEffect(() => {
@@ -253,13 +254,18 @@ export default function OnePageCheckout({
     });
 
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(orderResult.message)}`;
+    setOrderWhatsappUrl(whatsappUrl);
 
     // Show success & redirect
     setTimeout(() => {
       setIsOrdering(false);
       setIsSuccess(true);
       trackPurchase(subtotal, 'MAD', cartItems.map(item => item.id));
-      window.open(whatsappUrl, '_blank');
+      try {
+        window.open(whatsappUrl, '_blank');
+      } catch (err) {
+        console.error("Popup blocked:", err);
+      }
       clearCart();
     }, 1000);
   };
@@ -350,12 +356,29 @@ export default function OnePageCheckout({
           <h2 className="text-2xl sm:text-3xl font-black text-[#1C352D] dark:text-white mb-4">
             {lang === 'ar' ? t.successAr : t.successFr}
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-300 leading-relaxed mb-8">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-300 leading-relaxed mb-6">
             {lang === 'ar' ? t.successSubAr : t.successSubFr}
           </p>
+
+          {orderWhatsappUrl && (
+            <div className="mb-6">
+              <a
+                href={orderWhatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20ba5a] text-white font-black py-4 px-6 rounded-2xl shadow-xl shadow-emerald-500/15 hover:scale-[1.01] active:scale-99 transition-all text-sm sm:text-base cursor-pointer tracking-wide"
+              >
+                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 fill-white" />
+                <span>
+                  {lang === 'ar' ? 'اضغط هنا لتأكيد طلبك عبر واتساب 🟢' : 'Confirmer sur WhatsApp 🟢'}
+                </span>
+              </a>
+            </div>
+          )}
+
           <button
             onClick={() => setActiveView(hasPack ? 'packs' : 'store')}
-            className="px-8 py-3.5 bg-[#1C352D] hover:bg-[#25443B] dark:bg-[#C5A560] dark:text-slate-900 text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 bg-[#1C352D] hover:bg-[#25443B] dark:bg-[#C5A560] dark:text-slate-900 text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer"
           >
             {lang === 'ar' 
               ? (hasPack ? 'الرجوع لتشكيلة الباقات' : 'الرجوع للمتجر الرئيسي') 

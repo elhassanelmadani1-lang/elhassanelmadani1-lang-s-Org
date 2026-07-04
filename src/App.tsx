@@ -3055,6 +3055,22 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
             setShopCategory={setActiveCategoryFilter}
           />
         </motion.div>
+      ) : isPremiumProduct(activeView) ? (
+        <motion.div
+          key={`${activeView}-view`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <DXNPremiumProductsPage
+            lang={lang}
+            isRtl={isRtl}
+            handleGeneralInquiry={handleGeneralInquiry}
+            productId={activeView}
+            setActiveView={handleNavigateView}
+          />
+        </motion.div>
       ) : activeView === 'spirulina' ? (
         /* ================= DETAILED SPIRULINA LANDING VIEW ================= */
         <motion.div
@@ -4890,23 +4906,7 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
             isDark={isDark}
           />
         </motion.div>
-      ) : isPremiumProduct(activeView) ? (
-        <motion.div
-          key={`${activeView}-view`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <DXNPremiumProductsPage
-            lang={lang}
-            isRtl={isRtl}
-            handleGeneralInquiry={handleGeneralInquiry}
-            productId={activeView}
-            setActiveView={handleNavigateView}
-          />
-        </motion.div>
-      ) : (
+      ) : activeView === 'shampoo' ? (
         /* ================= DETAILED GANOZHI SHAMPOO LANDING VIEW ================= */
         <motion.div
           key="shampoo-view"
@@ -5325,6 +5325,11 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
           </section>
 
         </motion.div>
+      ) : (
+        /* FALLBACK OR LOADING STATE */
+        <div className="min-h-screen flex items-center justify-center bg-[#FAF6F0]">
+          <span className="text-slate-500 font-bold">Please wait...</span>
+        </div>
       )}
 
       {/* Customer experiences & reviews section */}
