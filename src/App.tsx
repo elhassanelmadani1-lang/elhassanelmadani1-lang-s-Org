@@ -627,7 +627,11 @@ export default function App() {
 
   // 1. URL Path Synchronization
   useEffect(() => {
-    const path = location.pathname;
+    let path = location.pathname || '/';
+    // Remove trailing slash if present (except for root '/')
+    if (path.length > 1 && path.endsWith('/')) {
+      path = path.slice(0, -1);
+    }
     
     if (path === '/' || path === '') {
       if (activeView !== 'store') setActiveView('store');
