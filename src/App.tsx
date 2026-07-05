@@ -299,11 +299,19 @@ export function getProductViewNameFromSlug(slug: string): string {
     return s;
   }
 
+  // Robust check without any dashes/underscores (e.g. aromaticbodylotion)
+  const cleanS = s.replace(/[-_]/g, '');
+  const matchedNormalized = knownViews.find(v => v.replace(/[-_]/g, '') === cleanS);
+  if (matchedNormalized) {
+    return matchedNormalized;
+  }
+
   // Fallback: check allProducts
   const matchInAll = allProducts.find(p => 
     p.id.toLowerCase() === s || 
     p.id.toLowerCase().replace(/_/g, '-') === withDashes ||
-    p.id.toLowerCase().replace(/-/g, '_') === withUnderscores
+    p.id.toLowerCase().replace(/-/g, '_') === withUnderscores ||
+    p.id.toLowerCase().replace(/[-_]/g, '') === cleanS
   );
   if (matchInAll) {
     return matchInAll.id;
