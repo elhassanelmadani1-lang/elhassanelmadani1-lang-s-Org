@@ -642,11 +642,21 @@ export default function App() {
     } else if (path === '/pack-detail') {
       if (activeView !== 'pack-detail') setActiveView('pack-detail');
     } else if (path.startsWith('/products/')) {
-      const slug = path.split('/products/')[1];
+      const rawSlug = path.split('/products/')[1] || '';
+      // Extract and clean slug: trim leading/trailing slashes, split by / to ignore nested paths, split by ? and # to remove query/hashes
+      const slug = rawSlug.replace(/^\/+|\/+$/g, '').split('/')[0].split('?')[0].split('#')[0].trim();
       if (slug) {
-        const viewName = getProductViewNameFromSlug(slug);
-        if (activeView !== viewName) {
-          setActiveView(viewName);
+        try {
+          const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
+          const viewName = getProductViewNameFromSlug(decodedSlug);
+          if (viewName && activeView !== viewName) {
+            setActiveView(viewName);
+          }
+        } catch (e) {
+          const viewName = getProductViewNameFromSlug(slug.toLowerCase());
+          if (viewName && activeView !== viewName) {
+            setActiveView(viewName);
+          }
         }
       }
     } else {
@@ -3439,22 +3449,6 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
             setShopCategory={setActiveCategoryFilter}
           />
         </motion.div>
-      ) : isPremiumProduct(activeView) ? (
-        <motion.div
-          key={`${activeView}-view`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <DXNPremiumProductsPage
-            lang={lang}
-            isRtl={isRtl}
-            handleGeneralInquiry={handleGeneralInquiry}
-            productId={activeView}
-            setActiveView={handleNavigateView}
-          />
-        </motion.div>
       ) : activeView === 'spirulina' ? (
         /* ================= DETAILED SPIRULINA LANDING VIEW ================= */
         <motion.div
@@ -5708,6 +5702,22 @@ ${coffee3in1Qty >= 2 ? (isRtl ? '• كوب سفر فاخر أو ملعقة خش
             </div>
           </section>
 
+        </motion.div>
+      ) : isPremiumProduct(activeView) ? (
+        <motion.div
+          key={`${activeView}-view`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <DXNPremiumProductsPage
+            lang={lang}
+            isRtl={isRtl}
+            handleGeneralInquiry={handleGeneralInquiry}
+            productId={activeView}
+            setActiveView={handleNavigateView}
+          />
         </motion.div>
       ) : (
         /* FALLBACK OR LOADING STATE */
