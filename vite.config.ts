@@ -100,7 +100,7 @@ Format your responses using clear bullet points and markdown paragraphs. Speak a
 
 export default defineConfig(() => {
   return {
-    base: '/', // <-- تمت إضافة السطر هنا بنجاح لإصلاح الروابط الفرعية والبياض
+    base: '/', // <-- هذا السطر هو الذي يمنع الـ 404 والصفحة البيضاء عند الدخول للروابط الفرعية مباشرة
     plugins: [react(), tailwindcss(), apiChatPlugin()],
     resolve: {
       alias: {
