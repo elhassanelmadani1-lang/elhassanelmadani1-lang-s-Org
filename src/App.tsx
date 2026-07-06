@@ -236,7 +236,8 @@ const reviewTranslations = {
 
 export function getProductSlug(id: string): string {
   if (!id) return '';
-  const s = id.toLowerCase();
+  // Convert camelCase to kebab-case first (e.g. eyeCream -> eye-cream)
+  let s = id.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
   if (s === 'face-cream' || s === 'face_cream' || s === 'facecream') {
     return 'kallow-divine-touch-face-cream';
   }
@@ -250,6 +251,42 @@ export function getProductViewNameFromSlug(slug: string): string {
   // Custom aliases/mappings requested by user or present in app
   if (s === 'kallow-divine-touch-face-cream' || s === 'face-cream' || s === 'face_cream' || s === 'facecream') {
     return 'face-cream';
+  }
+  if (s === 'eye-cream' || s === 'eye_cream' || s === 'eyecream') {
+    return 'eye-cream';
+  }
+  if (s === 'face-serum' || s === 'face_serum' || s === 'faceserum') {
+    return 'face-serum';
+  }
+  if (s === 'night-oil' || s === 'night_oil' || s === 'nightoil') {
+    return 'night-oil';
+  }
+  if (s === 'dry-oil' || s === 'dry_oil' || s === 'dryoil') {
+    return 'dry-oil';
+  }
+  if (s === 'foaming-cleanser' || s === 'foaming_cleanser' || s === 'foamingcleanser') {
+    return 'foaming-cleanser';
+  }
+  if (s === 'tonic-water' || s === 'tonic_water' || s === 'tonicwater') {
+    return 'tonic-water';
+  }
+  if (s === 'tightening-serum' || s === 'tightening_serum' || s === 'tighteningserum') {
+    return 'tightening-serum';
+  }
+  if (s === 'hydrating-face-cream' || s === 'hydrating_face_cream' || s === 'hydratingfacecream') {
+    return 'hydrating-face-cream';
+  }
+  if (s === 'sunscreen-spf50' || s === 'sunscreen_spf50' || s === 'sunscreenspf50') {
+    return 'sunscreen-spf50';
+  }
+  if (s === 'sunscreen-spf30' || s === 'sunscreen_spf30' || s === 'sunscreenspf30') {
+    return 'sunscreen-spf30';
+  }
+  if (s === 'cooling-after-sun' || s === 'cooling_after_sun' || s === 'coolingaftersun') {
+    return 'cooling-after-sun';
+  }
+  if (s === 'tanning-oil' || s === 'tanning_oil' || s === 'tanningoil') {
+    return 'tanning-oil';
   }
   if (s === 'lions-mane' || s === 'lions_mane') {
     return 'lions-mane';
