@@ -317,7 +317,7 @@ export function getProductViewNameFromSlug(slug: string): string {
     return matchInAll.id;
   }
 
-  return s;
+  return '';
 }
 
 export default function App() {
@@ -653,13 +653,23 @@ export default function App() {
         try {
           const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
           const viewName = getProductViewNameFromSlug(decodedSlug);
-          if (viewName && activeView !== viewName) {
-            setActiveView(viewName);
+          if (viewName) {
+            if (activeView !== viewName) {
+              setActiveView(viewName);
+            }
+          } else {
+            console.warn("Product not found, falling back to store:", decodedSlug);
+            setActiveView('store');
           }
         } catch (e) {
           const viewName = getProductViewNameFromSlug(slug.toLowerCase());
-          if (viewName && activeView !== viewName) {
-            setActiveView(viewName);
+          if (viewName) {
+            if (activeView !== viewName) {
+              setActiveView(viewName);
+            }
+          } else {
+            console.warn("Product not found, falling back to store:", slug);
+            setActiveView('store');
           }
         }
       }
