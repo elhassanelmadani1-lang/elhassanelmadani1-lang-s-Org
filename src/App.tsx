@@ -361,6 +361,13 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Meta Pixel (Facebook Pixel) Dynamic PageView Tracking on Route/Path Change
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      window.fbq('track', 'PageView');
+    }
+  }, [location.pathname, location.search]);
+
   const STORAGE_LANG_KEY = 'samira_naturale_lang';
   const STORAGE_CUST_KEY = 'samira_naturale_cust';
 
