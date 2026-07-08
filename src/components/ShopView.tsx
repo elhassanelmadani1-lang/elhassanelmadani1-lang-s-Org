@@ -66,7 +66,7 @@ const shopProducts = [
 
   // Row 10: Face Cosmetics Advanced Anti-Aging (Group of 3)
   { id: 'faceSerum', category: 'cosmetics', dataKey: 'faceSerum', price: 513, rating: 4.9, reviewsCount: 54, badgeAr: "شد ونضارة عميقة", badgeFr: "Sérum Tenseur ✦", view: 'face-serum' as any },
-  { id: 'eyeCream', category: 'cosmetics', dataKey: 'eyeCream', price: 504, rating: 5.0, reviewsCount: 48, badgeAr: "شد فوري لمحيط العين", badgeFr: "Lifting Regard ✦", view: 'eye-cream' as any },
+  { id: 'eyeCream', category: 'cosmetics', dataKey: 'eyeCream', price: 199, rating: 5.0, reviewsCount: 48, badgeAr: "شد فوري للهالات والتجاعيد", badgeFr: "Lifting Regard ✦", view: 'eye-cream' as any },
   { id: 'faceCream', category: 'cosmetics', dataKey: 'faceCream', price: 560, rating: 5.0, reviewsCount: 62, badgeAr: "نحت وامتلاء البشرة", badgeFr: "Crème Reconstructrice", view: 'face-cream' as any },
 
   // Row 11: Premium Oils & Toner (Group of 3)

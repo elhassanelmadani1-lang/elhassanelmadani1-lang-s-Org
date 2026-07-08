@@ -1189,6 +1189,64 @@ export default function App() {
         ];
         baseList = [...shampooSeed, ...baseList];
       }
+      const hasEyeCream = baseList.some((r: any) => r.productId === 'eye-cream' || r.productId === 'eye_cream');
+      if (!hasEyeCream) {
+        const eyeCreamSeed: Review[] = [
+          {
+            id: "rev_ec_1",
+            name: "سناء الودغيري",
+            city: "الدار البيضاء",
+            rating: 5,
+            productId: "eye-cream",
+            date: "2026-06-21",
+            text: {
+              ar: "البنات هاد كريم العينين خطير بزاااف! كانت عندي الهالات السوداء غامقة بزاف بسبب السهر والخدمة مع البيسي، جربت بزاف الكريمات الغاليين والو، ولكن هاد الكريم طبيعي وبان ليا الفرق فقل من سيمانة! النفاخ مابقاش ومحيط العين ولى مشدود ومشرق. والتوصيل كان سريع تال الدار فكازا وبالمجان. تبارك الله عليكم! 😍",
+              en: "This eye cream is absolutely incredible! My dark circles were so deep due to late nights, but this organic formula cleared them up in less than a week. Instant brightness!",
+              fr: "Une merveille absolue pour le regard ! Mes cernes profonds ont disparu en moins d'une semaine d'application. Peau lissée et éclatante."
+            }
+          },
+          {
+            id: "rev_ec_2",
+            name: "كوثر الفاسي",
+            city: "مراكش",
+            rating: 5,
+            productId: "eye-cream",
+            date: "2026-06-22",
+            text: {
+              ar: "والله العظيم حتى عجبني بزاف ومفعوله سحر! عينيا مابقاوش منفوخين فاش كنفيق وبشرة عيني ولات رطبة ومشدودة بحال إلى دايرة فيلر. كنشكركم على الأمانة والتعامل الراقي ديالكم، والتوصيل كان سريع والدفع حتى شديت القرعة ف يدي وتأكدت منها. تنصح كاع العيالات يجربوه!",
+              en: "I am stunned by how effective this is! No more morning puffiness, my skin is so plump and hydrated like I had fillers. Incredible customer service and fast cash on delivery.",
+              fr: "Effet tenseur incroyable ! Fini les poches gonflées le matin. La peau est hydratée en profondeur et repulpée. Service de livraison impeccable et paiement à la livraison."
+            }
+          },
+          {
+            id: "rev_ec_3",
+            name: "أمينة بنجلون",
+            city: "طنجة",
+            rating: 5,
+            productId: "eye-cream",
+            date: "2026-06-23",
+            text: {
+              ar: "كنت ديما كنعاني من الخطوط الرقيقة والتجاعيد وبشرة عيني ديما ناشفة وحساسة. منين استعملت هاد الكريم كيرطب بعمق وخفيف بزاف وماديرش الحساسية نهائياً. الخطوط بدات كتختفي وعيني رجع ليها النور والنضارة ديالها. خدمة 5 نجوم وتوصيل سريع بزاف لطنجة! 🌟",
+              en: "I suffered from deep fine lines and sensitive dry skin under my eyes. This cream is ultra-gentle, extremely moisturizing, and non-irritating. My fine lines are fading already!",
+              fr: "Idéal pour lisser les ridules de déshydratation sans aucune irritation. Texture légère et ultra-hydratante qui redonne de l'éclat aux yeux fatigués."
+            }
+          },
+          {
+            id: "rev_ec_4",
+            name: "حنان الناصري",
+            city: "أكادير",
+            rating: 5,
+            productId: "eye-cream",
+            date: "2026-06-24",
+            text: {
+              ar: "هاد الكريم ولى هو الروتين ديالي الأساسي صباح ومساء. الهالات السوداء مشات تماما والعين ديالي ولات كتبان مرتاحة ومنورة وخا نكون سهرانا. تعامل طيب واستشارة مجانية قيمة وتوصيل بالمجان تال أكادير. شكرا لالة سميرة على هاد المنتوج الراقي! ❤️",
+              en: "This has become my ultimate daily routine! Dark circles are completely gone and my eyes look well-rested even after late nights. Free shipping to Agadir, thank you so much!",
+              fr: "Soin quotidien parfait. Mes cernes sombres ont totalement disparu. Le regard est frais et reposé. Livraison gratuite et service au top !"
+            }
+          }
+        ];
+        baseList = [...eyeCreamSeed, ...baseList];
+      }
       return baseList;
     } catch {
       return INITIAL_REVIEWS_SEED;

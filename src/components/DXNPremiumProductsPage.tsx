@@ -1305,27 +1305,37 @@ export default function DXNPremiumProductsPage({
     {
       id: 'eye_cream',
       name: {
-        ar: "كريم العين لشد الجفون ومحيط العينين DXN",
+        ar: "كريم العينين الأصلي من DXN للهالات والتجاعيد",
         en: "DXN Lifting Impact Eye Cream",
         fr: "Crème Contour des Yeux Liftante DXN"
       },
       subtitle: {
-        ar: "علاج طبيعي فاخر لإزالة الهالات السوداء وشد ترهلات الجفون ومقاومة التجاعيد",
+        ar: "🚚 شحن مجاني وسريع لجميع مدن المغرب + الدفع عند الاستلام!",
         en: "Luxurious Targeted Gaze Restoration, Wrinkle Reduction & Dark Circle Defense",
         fr: "Soin Regard d'Exception, Estompe Cernes et Poches & Effet Tenseur Immédiat"
       },
       desc: {
-        ar: "كريم فائق التركيز مصمم خصيصاً لتنعيم الخطوط التعبيرية الرقيقة حول العينين، وتفتيح الهالات السوداء، ورفع وشد الجفون المترهلة لنظرة شبابية متوهجة.",
+        ar: "وداعاً للهالات السوداء ونظرة التعب! استعيدي سحر وبريق عينيك في 7 أيام فقط مع كريم DXN العلاجي الفاخر!",
         en: "A luxurious active formulation specifically designed to smooth fine lines, fade dark circles, and lift tired eyelids for an instantly younger and brighter gaze.",
         fr: "Une formule active et luxueuse conçue pour lisser les ridules, estomper les cernes et retendre les paupières pour un regard visiblement plus jeune et éclatant."
       },
       longDesc: {
-        ar: "استعيدي بريق وسحر نظرتك مع كريم العين لشد الجفون المتطور من دي إكس إن. تركيبته المخملية الغنية بالمكونات الحيوية النشطة تستهدف المشاكل الأكثر شيوعاً في منطقة محيط العين الرقيقة. يغذي الكريم البشرة بعمق لتحفيز إنتاج الكولاجين الطبيعي، مما يعمل على شد الجفون العلوية ومنع ترهلها، وتخفيف مظهر الانتفاخات الصباحية والهالات السوداء الناتجة عن الإرهاق. يملأ الكريم الخطوط الدقيقة والتجاعيد التعبيرية ويعيد المرونة والحيوية للمظهر العام للعينين.",
+        ar: `🌟 الحل الطبيعي الفاخر والأسرع في 7 أيام فقط للتخلص النهائي من عيوب محيط العينين! 🌟
+
+✨ بديلك الآمن وعالي الفعالية عن جلسات الفيلر والميزوتيرابي المكلفة:
+✔ علاج الهالات السوداء: ينشط الدورة الدموية الدقيقة حول العين ليقضي على السواد والزرقة والجهد.
+✔ شد فوري وتخفيف التجاعيد: يملأ الخطوط الدقيقة وتجاعيد "رجل الغراب" (Crow's Feet) بشكل ملحوظ.
+✔ القضاء على الجيوب والانتفاخات: يهدئ انتفاخات الجفون صباحاً لمظهر منتعش ومستيقظ كل يوم.
+✔ ترطيب عميق ومكثف: يغذي خلايا البشرة الحساسة ليعيد إليها المرونة والنضارة المفقودة.
+
+🎁 العروض الحصرية اليوم:
+1️⃣ عرض قطعة واحدة: 504 درهم فقط (توصيل فابور مجاني تال باب الدار!).
+2️⃣ عرض التوفير الممتاز (قطعتين): 890 درهم فقط عوض 1008 درهم (وفري 118 درهم!) مع استشارة ومتابعة شخصية مجانية طيلة فترة الاستخدام!`,
         en: "Reawaken your eyes with the DXN Lifting Impact Eye Cream, a botanical formula engineered for the delicate skin of the eye contour. Powered by premium cellular repair activators, this rich yet fast-absorbing cream targets sagging eyelids, deep-set crows feet, and stubborn dark circles. It hydrates instantly, stimulates circulation to eliminate puffiness, and tightens sagging skin. Watch fine lines disappear as the eye area is restored to a brighter, smoother, and completely refreshed state.",
         fr: "Redonnez vie et jeunesse à votre regard avec la Crème Contour des Yeux Liftante DXN. Sa formule fine, ultra-pénétrante et riche en agents tenseurs biologiques cible les zones de fatigue du contour de l'œil. Elle agit puissamment pour drainer les poches sous les yeux, éclaircir les cernes sombres et raffermir la paupière supérieure. Les rides et ridules de déshydratation sont immédiatement lissées, redonnant au regard toute sa clarté, sa jeunesse et son dynamisme naturel."
       },
       usage: {
-        ar: "ضعي كمية صغيرة جداً بحجم حبة البازلاء على جفون وعظام العين، ربتي بلطف شديد باستخدام إصبع البنصر (الرابع) من الداخل إلى الخارج مرتين يومياً صباحاً ومساءً.",
+        ar: "طريقة الاستخدام لضمان أفضل نتيجة:\n1. نظفي بشرتك مزيان بالماء الدافئ والصابون الطبيعي.\n2. ضعي نقطة صغيرة جداً (بحجم حبة البازلاء) على أطراف أصابعك.\n3. ربتي بلطف شديد باستخدام إصبع البنصر (الرابع) حول محيط العين من الداخل إلى الخارج.\n4. استخدميه مرتين يومياً (مرة في الصباح ومرة قبل النوم) بانتظام وشوفي السحر بعينيك!",
         en: "Apply a tiny amount (pea-sized) around the eye contour. Gently pat with your ring finger from the inner corner outwards. Use twice daily, morning and night.",
         fr: "Appliquer une infime quantité (de la taille d'un grain de riz) sur le contour de l'œil propre. Tapoter délicatement du coin interne vers l'externe. Utiliser matin et soir."
       },
@@ -2202,7 +2212,7 @@ export default function DXNPremiumProductsPage({
 
     const activeProductTitle = currentProductData.name[lang];
     const unitPrice = currentProductData.price;
-    const finalPrice = unitPrice * orderQuantity;
+    const finalPrice = currentProductData.id === 'eye_cream' && orderQuantity === 2 ? 890 : unitPrice * orderQuantity;
     const sizeStr = currentProductData.selectedVariantName ? ` [${currentProductData.selectedVariantName}]` : '';
 
     const message = `👑 طلب شراء جديد - مكملات DXN الفاخرة 👑
@@ -2253,9 +2263,10 @@ export default function DXNPremiumProductsPage({
   };
 
   const scrollToCheckout = () => {
+    const checkoutTotal = currentProductData.id === 'eye_cream' && orderQuantity === 2 ? 890 : currentProductData.price * orderQuantity;
     trackInitiateCheckout(
       orderQuantity,
-      currentProductData.price * orderQuantity,
+      checkoutTotal,
       'MAD',
       [{ id: currentProductData.id, quantity: orderQuantity }],
       [currentProductData.id]
@@ -2617,6 +2628,34 @@ export default function DXNPremiumProductsPage({
               })}
             </div>
 
+            {/* QUICK ORDER CTA UNDER IMAGES */}
+            <div className="pt-6 flex flex-col items-center">
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('premium-checkout-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full px-8 py-4.5 bg-emerald-800 hover:bg-[#1E3A34] text-white font-black text-sm sm:text-base rounded-2xl shadow-xl hover:shadow-emerald-800/10 transition-all duration-300 border-2 border-[#C5A560]/40 transform active:scale-98 flex items-center justify-center gap-3 cursor-pointer select-none"
+              >
+                <ShoppingBag className="w-5 h-5 text-[#C5A560]" />
+                <span>
+                  {lang === 'ar' ? "اطلب الآن - الدفع عند الاستلام" : "Order Now - Cash on Delivery"}
+                </span>
+              </button>
+              {currentProductData.id === 'eye_cream' && (
+                <div className="mt-3 flex items-center gap-1.5 bg-[#FAF7F2] border border-[#EADFC9]/50 px-4 py-2 rounded-full shadow-xs">
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                  </span>
+                  <p className="text-[11px] sm:text-xs text-red-600 font-black">
+                    {lang === 'ar' ? "🎁 متوفر عرض قطعتين بـ 890 درهم فقط! (وفري 118 درهم)" : "🎁 Special offer: 2 pieces for 890 MAD only! (Save 118 MAD)"}
+                  </p>
+                </div>
+              )}
+            </div>
+
           </div>
 
           {/* 2. RIGHT COLUMN: PRODUCT INFORMATION & CONTROLS */}
@@ -2677,13 +2716,13 @@ export default function DXNPremiumProductsPage({
             </div>
 
             {/* DESCRIPTION */}
-            <div className="space-y-3">
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-semibold">
+            <div className="space-y-4">
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold border-l-4 border-[#C5A560] pl-3 rtl:border-l-0 rtl:border-r-4 rtl:pr-3">
                 {currentProductData.desc[lang]}
               </p>
-              <p className="hidden md:block text-xs sm:text-sm text-slate-500 leading-relaxed">
+              <div className="text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line space-y-2 bg-[#FAF7F2]/40 p-4 rounded-xl border border-[#EADFC9]/20">
                 {currentProductData.longDesc[lang]}
-              </p>
+              </div>
             </div>
 
             {/* EXQUISITE MORINZHI VARIANT SELECTOR */}
@@ -3097,6 +3136,81 @@ export default function DXNPremiumProductsPage({
               </div>
             </div>
 
+            {/* BUNDLE OFFER SELECTOR FOR EYE CREAM */}
+            {currentProductData.id === 'eye_cream' && (
+              <div className="p-5 rounded-2xl border-2 border-[#C5A560] bg-[#FAF7F2]/50 space-y-4 relative overflow-hidden select-none">
+                <div className="absolute top-0 right-0 bg-[#C5A560] text-[#122621] text-[9px] font-black px-3.5 py-1.5 rounded-bl-xl uppercase tracking-wider">
+                  {lang === 'ar' ? "عروض التوفير الحصرية" : "EXCLUSIVE OFFERS"}
+                </div>
+                <h3 className="text-xs sm:text-sm font-black text-[#1C352D] flex items-center gap-1.5 pt-1">
+                  <Sparkles className="w-4 h-4 text-[#C5A560]" />
+                  <span>{lang === 'ar' ? "اختر العرض المفضل لديك اليوم:" : "Choose your preferred offer today:"}</span>
+                </h3>
+                
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {/* Option 1: 1 Piece */}
+                  <div
+                    onClick={() => setOrderQuantity(1)}
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between transform active:scale-99 ${
+                      orderQuantity === 1
+                        ? 'border-[#1C352D] bg-[#EAF0EC] shadow-sm scale-[1.01]'
+                        : 'border-[#EADFC9]/50 bg-white hover:border-[#C5A560]/40'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-black text-[#1C352D]">
+                        {lang === 'ar' ? "عرض قطعة واحدة" : "1 Piece Offer"}
+                      </span>
+                      <div className={`w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center ${
+                        orderQuantity === 1 ? 'border-[#1C352D]' : 'border-slate-300'
+                      }`}>
+                        {orderQuantity === 1 && <div className="w-2.5 h-2.5 rounded-full bg-[#1C352D]" />}
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <span className="text-base sm:text-lg font-black text-[#1C352D]">504 {lang === 'ar' ? "درهم" : "MAD"}</span>
+                      <span className="text-[11px] text-emerald-800 font-bold block mt-1">
+                        {lang === 'ar' ? "🚚 توصيل مجاني فابور تال الدار" : "🚚 Free Home Delivery"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Option 2: 2 Pieces */}
+                  <div
+                    onClick={() => setOrderQuantity(2)}
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all relative overflow-hidden flex flex-col justify-between transform active:scale-99 ${
+                      orderQuantity === 2
+                        ? 'border-[#C5A560] bg-[#FAF7F2] shadow-md scale-[1.01]'
+                        : 'border-[#EADFC9]/50 bg-white hover:border-[#C5A560]/40'
+                    }`}
+                  >
+                    <div className="absolute top-0 left-0 bg-red-600 text-white text-[8px] sm:text-[9px] font-black px-2.5 py-1 rounded-br-lg uppercase tracking-wider">
+                      {lang === 'ar' ? "الأكثر طلباً - وفري 118 درهم" : "Best Value - Save 118 MAD"}
+                    </div>
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="text-xs sm:text-sm font-black text-[#1C352D] flex items-center gap-1">
+                        {lang === 'ar' ? "عرض قطعتين (التوفير الممتاز)" : "2 Pieces Offer (Premium Savings)"}
+                      </span>
+                      <div className={`w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center ${
+                        orderQuantity === 2 ? 'border-[#C5A560]' : 'border-slate-300'
+                      }`}>
+                        {orderQuantity === 2 && <div className="w-2.5 h-2.5 rounded-full bg-[#C5A560]" />}
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-base sm:text-lg font-black text-red-600">890 {lang === 'ar' ? "درهم" : "MAD"}</span>
+                        <span className="text-xs line-through text-slate-400 font-bold">1008 {lang === 'ar' ? "درهم" : "MAD"}</span>
+                      </div>
+                      <span className="text-[11px] text-emerald-800 font-bold block mt-1">
+                        {lang === 'ar' ? "🎁 متابعة واستشارة شخصية مجانية" : "🎁 Free Personal Consultation & Support"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Quantity Controls & Dynamic Totals */}
             <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#EADFC9]/40 grid sm:grid-cols-2 gap-4 items-center">
               <div className="flex items-center justify-between sm:justify-start gap-4">
@@ -3123,7 +3237,7 @@ export default function DXNPremiumProductsPage({
               <div className="text-end border-t sm:border-t-0 pt-3 sm:pt-0 border-[#EADFC9]/50 flex items-center justify-between sm:justify-end gap-2">
                 <span className="text-xs font-bold text-slate-500">{text.totalPrice}</span>
                 <span className="text-xl sm:text-2xl font-black text-[#1C352D]">
-                  {currentProductData.price * orderQuantity} {lang === 'ar' ? "درهم" : "MAD"}
+                  {currentProductData.id === 'eye_cream' && orderQuantity === 2 ? 890 : currentProductData.price * orderQuantity} {lang === 'ar' ? "درهم" : "MAD"}
                 </span>
               </div>
             </div>
